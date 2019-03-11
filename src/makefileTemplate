@@ -1,0 +1,15 @@
+#Root folder - needs to be adjusted for every project instance	
+ROOT=home/jacky/Documents/Projects/JollyEngine/
+
+CC=g++
+CFLAGS=-g -Wall
+
+#Location of dependencies
+DEP_LOC=$(ROOT)dependencies/
+
+all: jollyEngine
+
+jollyEngine: Application.cpp
+	$(CC) $(CFLAGS) -o jollyEngine  Application.cpp -lglfw -lX11 -lGL
+
+clean: rm jollyEngine
