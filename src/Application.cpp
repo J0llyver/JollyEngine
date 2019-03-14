@@ -1,9 +1,13 @@
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+#include <iostream>
 
 int main(void)
 {
     GLFWwindow* window;
 
+    
     /* Initialize the library */
     if (!glfwInit())
         return -1;
@@ -19,11 +23,28 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    if (glewInit() != GLEW_OK)
+    {
+    	std::cout << "Failed to initialize glew!" << std::endl;
+    }
+
+    std::cout << glGetString(GL_VERSION) << std::endl;
+
+    unsigned int buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER,buffer);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glBegin(GL_TRIANGLES);
+        glVertex2f(-0.5f,-0.5f);
+        glVertex2f(0.5f,-0.5f);
+        glVertex2f(0.0f,0.5f);
+        glEnd();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

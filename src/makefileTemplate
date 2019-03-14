@@ -6,10 +6,11 @@ CFLAGS=-g -Wall
 
 #Location of dependencies
 DEP_LOC=$(ROOT)dependencies/
+#INC= -I/$(DEP_LOC)glew-2.1.0/include
 
 all: jollyEngine
 
 jollyEngine: Application.cpp
-	$(CC) $(CFLAGS) -o jollyEngine  Application.cpp -lglfw -lX11 -lGL
+	$(CC) $(CFLAGS)  -o jollyEngine  Application.cpp -lglfw -lX11 -lGL -lGLEW
 
 clean: rm jollyEngine
