@@ -32,7 +32,6 @@ static unsigned int CompileShader( unsigned int type, const std::string & source
 	}
 
 	return id;
-
 }
 
 static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader){
@@ -55,13 +54,12 @@ int main(void)
 {
     GLFWwindow* window;
 
-    
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(640, 480, "Canvas", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -86,6 +84,7 @@ int main(void)
 
     unsigned int vbo;
 
+    // Deviations from Tutorial becaus of Intel GPU
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(
@@ -130,6 +129,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Create class Painter that takes objects to draw and a canvas to draw on
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* Swap front and back buffers */
