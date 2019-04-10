@@ -3,7 +3,6 @@ class Painter {
 		Painter();
 		~Painter();
 
-		
 		// Add canvas as parameter when class was created
 		void Draw();
 
