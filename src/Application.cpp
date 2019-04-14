@@ -6,9 +6,10 @@
 #include <string>
 #include <sstream>
 
-#include "Renderer.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
+#include "Renderer/Renderer.h"
+#include "VertexBuffer/VertexBuffer.h"
+#include "IndexBuffer/IndexBuffer.h"
+#include "VertexArray/VertexArray.h"
 
 struct ShaderProgramSource{
 	std::string VertexSource;
@@ -131,18 +132,16 @@ int main(void)
 	    	2, 3, 0
 	    };
 
-	    unsigned int vao;
-	    glGenVertexArrays(1, &vao);
-	    glBindVertexArray(vao);
-
+	    VertexArray va;
 	    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+	    VertexBufferLayout layout;
+	    layout.Push(GL_FLOAT, 2);
+	    va.AddBuffer(vb, layout);
 
 		IndexBuffer ib(indices, 6);
 
-		ShaderProgramSource source = ParseShader("res/shaders/basic.shader");
+		ShaderProgramSource source = ParseShader("resc/shaders/basic.shader");
 
 		unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
 		glUseProgram(shader);
@@ -158,7 +157,7 @@ int main(void)
 			glUseProgram(shader);
 			glUniform4f(location, 0.8f, 0.3f, 0.8f, 1.0f);
 
-			glBindVertexArray(vao);
+			va.Bind();
 			ib.Bind();
 
 	        // Create class Painter that takes objects to draw and a canvas to draw on

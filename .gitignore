@@ -1,2 +1,6 @@
-jollyEngine
-makefile
+JollyEngine
+JollyEngine.*
+Makefile
+CMakeFiles
+CMakeCache.txt
+*.cmake
