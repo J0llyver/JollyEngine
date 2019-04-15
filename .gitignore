@@ -3,4 +3,5 @@ JollyEngine.*
 Makefile
 CMakeFiles
 CMakeCache.txt
+libindexbuffer.a
 *.cmake
