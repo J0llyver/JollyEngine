@@ -1,3 +1,0 @@
-#define JollyEngine_VERSION_MAJOR @JollyEngine_VERSION_MAJOR@
-#define JollyEngine_VERSION_MINOR @JollyEngine_VERSION_MINOR@
-
