@@ -68,9 +68,9 @@ int main(void)
 		shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
 		va.Unbind();
-		shader.Unbind();
 		vb.Unbind();
 		ib.Unbind();
+		shader.Unbind();
 
 
 
