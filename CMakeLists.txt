@@ -34,6 +34,13 @@ add_executable(
 	src/Renderer/Renderer.h
 	src/Renderer/Renderer.cpp
 
+	src/Texture/Texture.h
+	src/Texture/Texture.cpp
+
+	src/vendor/stb_image/stb_image.h
+	src/vendor/stb_image/stb_image.cpp
+
+
 )
 
 target_link_libraries(JollyEngine ${LINK_LIBRARIES} )

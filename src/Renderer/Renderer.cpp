@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void Renderer::Clear(){
+void Renderer::Clear() const {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 

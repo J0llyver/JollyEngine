@@ -8,6 +8,7 @@
 
 #include "Renderer/Renderer.h"
 #include "VertexBuffer/VertexBuffer.h"
+#include "Texture/Texture.h"
 
 int main(void)
 {
@@ -39,11 +40,11 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
     {
-	    float positions[8] = {
-	    	-0.5f, -0.5f,
-	    	 0.5f, -0.5f,
-	    	 0.5f,  0.5f,
-	    	-0.5f,  0.5f
+	    float positions[16] = {
+	    	-0.5f, -0.5f, 0.0f, 0.0f,
+	    	 0.5f, -0.5f, 1.0f, 0.0f,
+	    	 0.5f,  0.5f, 1.0f, 1.0f,
+	    	-0.5f,  0.5f, 0.0f, 1.0f
 	    }; 
 
 	    unsigned int indices[6] = {
@@ -52,9 +53,10 @@ int main(void)
 	    };
 
 	    VertexArray va;
-	    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
+	    VertexBuffer vb(positions, 4 * 4 * sizeof(float));
 
 	    VertexBufferLayout layout;
+	    layout.Push(GL_FLOAT, 2);
 	    layout.Push(GL_FLOAT, 2);
 	    va.AddBuffer(vb, layout);
 
@@ -64,9 +66,13 @@ int main(void)
 		shader.Bind();
 		shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
+		Texture texture("resc/textures/DwarfFortressMap.png");
+		texture.Bind();
+		shader.SetUniform1i("u_Texture", 0);
+
 		va.Unbind();
 		vb.Unbind();
-		ib.Unbind();
+		ib.Unbind();	
 		shader.Unbind();
 
 		Renderer renderer;
@@ -78,7 +84,6 @@ int main(void)
 	        renderer.Clear();
 
 	        renderer.Draw(va, ib, shader);
-	        shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
 	        /* Swap front and back buffers */
 	        glfwSwapBuffers(window);

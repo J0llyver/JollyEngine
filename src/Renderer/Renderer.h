@@ -6,6 +6,7 @@
 
 class Renderer{
 public:
+	
 	void Clear() const;
 
 	void Draw(
