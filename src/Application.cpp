@@ -8,9 +8,6 @@
 
 #include "Renderer/Renderer.h"
 #include "VertexBuffer/VertexBuffer.h"
-#include "IndexBuffer/IndexBuffer.h"
-#include "VertexArray/VertexArray.h"
-#include "Shader/Shader.h"
 
 int main(void)
 {
@@ -72,22 +69,16 @@ int main(void)
 		ib.Unbind();
 		shader.Unbind();
 
-
+		Renderer renderer;
 
 	    /* Loop until the user closes the window */
 	    while (!glfwWindowShouldClose(window))
 	    {
 	        /* Render here */
-	        glClear(GL_COLOR_BUFFER_BIT);
+	        renderer.Clear();
 
-	        shader.Bind();
+	        renderer.Draw(va, ib, shader);
 	        shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
-
-			va.Bind();
-			ib.Bind();
-
-	        // Create class Painter that takes objects to draw and a canvas to draw on
-	        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 	        /* Swap front and back buffers */
 	        glfwSwapBuffers(window);

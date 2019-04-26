@@ -31,6 +31,9 @@ add_executable(
 	src/Shader/Shader.h
 	src/Shader/Shader.cpp
 
+	src/Renderer/Renderer.h
+	src/Renderer/Renderer.cpp
+
 )
 
 target_link_libraries(JollyEngine ${LINK_LIBRARIES} )
