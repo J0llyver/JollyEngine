@@ -7,10 +7,12 @@ set (LINK_LIBRARIES glfw X11 GL GLEW)
 # The compiler
 set (CMAKE_C_COMPILER /usr/bin/g++)
 set (CMAKE_CXX_COMPILER /usr/bin/g++)
+set (CPP_VERSION_COMPILE_FLAG -std=c++1z)
+add_definitions(${CPP_VERSION_COMPILE_FLAG})
 
-add_compile_options(-g -Wall)
+add_compile_options(-g -Wall -Wformat)
 
-include_directories("${PROJECT_BINARY_DIR}")
+include_directories("${PROJECT_BINARY_DIR}" "src/vendor")
 add_executable(
 	JollyEngine 
 
@@ -40,7 +42,22 @@ add_executable(
 	src/vendor/stb_image/stb_image.h
 	src/vendor/stb_image/stb_image.cpp
 
+	src/vendor/imgui/imgui.cpp
+	src/vendor/imgui/imgui.h
+	src/vendor/imgui/imgui_demo.cpp
+	src/vendor/imgui/imgui_draw.cpp
+	src/vendor/imgui/imgui_widgets.cpp
+	src/vendor/imgui/imgui_internal.h
+	src/vendor/imgui/imconfig.h
 
+	src/vendor/imgui/imstb_rectpack.h
+	src/vendor/imgui/imstb_textedit.h
+	src/vendor/imgui/imstb_truetype.h
+
+	src/vendor/imgui/imgui_impl_opengl3.cpp
+	src/vendor/imgui/imgui_impl_opengl3.h
+	src/vendor/imgui/imgui_impl_glfw.h
+	src/vendor/imgui/imgui_impl_glfw.cpp
 )
 
 target_link_libraries(JollyEngine ${LINK_LIBRARIES} )

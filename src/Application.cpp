@@ -1,3 +1,7 @@
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -9,91 +13,145 @@
 #include "Renderer/Renderer.h"
 #include "VertexBuffer/VertexBuffer.h"
 #include "Texture/Texture.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 int main(void)
 {
-    GLFWwindow* window;
+	GLFWwindow* window;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
+	/* Initialize the library */
+	if (!glfwInit())
+	return -1;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Canvas", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(960, 540, "Canvas", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
 
-    if (glewInit() != GLEW_OK)
-    {
-    	std::cout << "Failed to initialize glew!" << std::endl;
-    }
+	if (glewInit() != GLEW_OK)
+	{
+		std::cout << "Failed to initialize glew!" << std::endl;
+	}
 
-    std::cout << glGetString(GL_VERSION) << std::endl;
-    {
-	    float positions[16] = {
-	    	-0.5f, -0.5f, 0.0f, 0.0f,
-	    	 0.5f, -0.5f, 1.0f, 0.0f,
-	    	 0.5f,  0.5f, 1.0f, 1.0f,
-	    	-0.5f,  0.5f, 0.0f, 1.0f
-	    }; 
+	std::cout << glGetString(GL_VERSION) << std::endl;
+	{
+		float positions[16] =
+		{
+			0.0f, 0.0f, 0.0f, 0.0f,
+			100.0f, 0.0f, 1.0f, 0.0f,
+			100.0f, 100.0f, 1.0f, 1.0f,
+			0.0f, 100.0f, 0.0f, 1.0f
+		}; 
 
-	    unsigned int indices[6] = {
-	    	0, 1, 2,
-	    	2, 3, 0
-	    };
+		unsigned int indices[6] =
+		{ 
+			0, 1, 2,
+			2, 3, 0
+		};
 
-	    VertexArray va;
-	    VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+		VertexArray va;
+		VertexBuffer vb(positions, 4 * 4 * sizeof(float));
 
-	    VertexBufferLayout layout;
-	    layout.Push(GL_FLOAT, 2);
-	    layout.Push(GL_FLOAT, 2);
-	    va.AddBuffer(vb, layout);
+		VertexBufferLayout layout;
+		layout.Push(GL_FLOAT, 2);
+		layout.Push(GL_FLOAT, 2);
+		va.AddBuffer(vb, layout);
 
 		IndexBuffer ib(indices, 6);
 
-		Shader shader("resc/shaders/basic.shader");
-		shader.Bind();
-		shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+		glm::vec3 objectPosition(100,100,0);
+		glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+		glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+		glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), objectPosition);
+
+		glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
 		Texture texture("resc/textures/DwarfFortressMap.png");
 		texture.Bind();
-		shader.SetUniform1i("u_Texture", 0);
 
 		va.Unbind();
 		vb.Unbind();
 		ib.Unbind();	
-		shader.Unbind();
 
 		Renderer renderer;
+		
+		const char* glsl_version = "#version 130";
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-	    /* Loop until the user closes the window */
-	    while (!glfwWindowShouldClose(window))
-	    {
-	        /* Render here */
-	        renderer.Clear();
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplOpenGL3_Init(glsl_version);
 
-	        renderer.Draw(va, ib, shader);
+		ImGui::StyleColorsDark();
 
-	        /* Swap front and back buffers */
-	        glfwSwapBuffers(window);
+		// Our state
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-	        /* Poll for and process events */
-	        glfwPollEvents();
-	    }
+		/* Loop until the user closes the window */
+		while (!glfwWindowShouldClose(window))
+		{
+			/* Render here */
+			renderer.Clear();
 
-	    // glDeleteProgram(shader);
+			modelMatrix = glm::translate(glm::mat4(1.0f), objectPosition);
+			modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
+
+			Shader shader("resc/shaders/basic.shader");
+			shader.Bind();
+			shader.SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
+
+			shader.SetUniform1i("u_Texture", 0);
+			shader.Unbind();
+
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+
+			{
+				ImGui::Begin("Hello, world!");
+
+				ImGui::SliderFloat("Position X", &objectPosition.x, 0.0f, 960.0f);
+				ImGui::SliderFloat("Position Y", &objectPosition.y, 0.0f, 540.0f);
+				ImGui::ColorEdit3("clear color", (float*)&clear_color);
+
+				ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+				ImGui::End();
+			}
+
+			renderer.Draw(va, ib, shader);
+
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+			/* Swap front and back buffers */
+			glfwSwapBuffers(window);
+
+			/* Poll for and process events */
+			glfwPollEvents();
+
+		}
+
+		//glDeleteProgram(shader);
 	}
-    glfwTerminate();
-    return 0;
+
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwTerminate();
+	return 0;
 }
