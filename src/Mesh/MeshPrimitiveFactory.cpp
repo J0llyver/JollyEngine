@@ -1,8 +1,8 @@
-#include "../Geometry.h"
+#include "../Mesh.h"
 
 namespace
 {
-	Geometry* CreateTriangle()
+	Mesh* CreateTriangle()
 	{
 		std::vector<float> vertexBuffer = 
 		{
@@ -13,12 +13,12 @@ namespace
 
 		std::vector<int> indexBuffer = { 0, 1, 2 };
 
-		Geometry triangle = new Geometry(vertexBuffer, indexBuffer);	
+		Mesh triangle = new Mesh(vertexBuffer, indexBuffer);	
 
 		return triangle;
 	}
 	
-	Geometry* CreateSquare()
+	Mesh* CreateSquare()
 	{
 		std::vector<float> vertexBuffer = 
 		{
@@ -30,28 +30,28 @@ namespace
 
 		std::vector<int> indexBuffer = { 0, 1, 2, 2, 3, 0 };
 
-		Geometry square = new Geometry(vertexBuffer, indexBuffer);	
+		Mesh square = new Mesh(vertexBuffer, indexBuffer);	
 
 		return &square;
 	}
 }
 
-GeometryPrimitiveFactory::GeometryPrimitiveFactory() {}
+MeshPrimitiveFactory::MeshPrimitiveFactory() {}
 
-void GeometryPrimitiveFactory::CreatePrimitive(GeometryPrimitiveType type, const Geometry* oGeometry)
+void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitiveType type, const Mesh* oMesh)
 {
 	switch(type)
 	{
 		case Sqare:
-				oGeometry = CreateSquare();
+				oMesh = CreateSquare();
 			break;
 
 		case Triangle:
-				oGeometry = CreateTriangle();
+				oMesh = CreateTriangle();
 			break;
 
 		default:
-				oGeometry = CreateTriangle();	
+				oMesh = CreateTriangle();	
 	}
 }
 

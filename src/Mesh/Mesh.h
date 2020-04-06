@@ -1,18 +1,18 @@
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
+#ifndef MESH_H
+#define MESH_H
 
 #include <vector>
 #include <string>
 
-// ToDo: implement methods in Geometry.cpp, also Constructor and Destructor
-class Geometry 
+// ToDo: implement methods in Mesh.cpp, also Constructor and Destructor
+class Mesh 
 {
 	public:
-		Geometry(
+		Mesh(
 			std::vector<float>& vertexBuffer, 
 			std::vector<int>& indexBuffer
 		);
-		~Geometry(); // ToDo: Delete vertexBuffer and indexBuffer
+		~Mesh(); // ToDo: Delete vertexBuffer and indexBuffer
 
 		float* GetVertexBuffer() const { return vertexBuffer; }
 		int* GetIndexBuffer() const { return indexBuffer; }
