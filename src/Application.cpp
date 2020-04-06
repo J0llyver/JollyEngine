@@ -10,9 +10,12 @@
 #include <string>
 #include <sstream>
 
-#include "Renderer/Renderer.h"
-#include "VertexBuffer/VertexBuffer.h"
-#include "Texture/Texture.h"
+#include "OpenGLRenderer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
+#include "Texture.h"
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -84,7 +87,7 @@ int main(void)
 		vb.Unbind();
 		ib.Unbind();	
 
-		Renderer renderer;
+		OpenGLRenderer renderer;
 		
 		const char* glsl_version = "#version 130";
 		IMGUI_CHECKVERSION();

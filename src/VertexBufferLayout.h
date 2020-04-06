@@ -1,3 +1,6 @@
+#ifndef VERTEXBUFFERLAYOUT_H
+#define VERTEXBUFFERLAYOUT_H
+
 #include <vector>
 #include <GL/glew.h>
 
@@ -31,3 +34,5 @@ public:
  	inline const std::vector<VertexBufferLayoutElement> GetElements() const { return elements; }
 	inline unsigned int GetStride() const { return stride; }
 };
+
+#endif

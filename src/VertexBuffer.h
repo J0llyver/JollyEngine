@@ -1,3 +1,6 @@
+#ifndef VERTEXBUFFER_H
+#define VERTEXBUFFER_H
+
 #pragma once
 
 class VertexBuffer{
@@ -11,3 +14,5 @@ public:
 	void Bind() const;
 	void Unbind() const;
 };
+
+#endif

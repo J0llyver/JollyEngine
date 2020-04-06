@@ -1,3 +1,6 @@
+#ifndef INDEXBUFFER_H
+#define INDEXBUFFER_H
+
 #pragma once
 
 class IndexBuffer{
@@ -14,3 +17,5 @@ public:
 
 	inline unsigned int GetCount() const { return count; }
 };
+
+#endif

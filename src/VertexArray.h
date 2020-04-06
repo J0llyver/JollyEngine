@@ -1,5 +1,8 @@
-#include "../VertexBuffer/VertexBuffer.h"
-#include "../VertexBufferLayout/VertexBufferLayout.h"
+#ifndef VERTEXARRAY_H
+#define VERTEXARRAY_H
+
+#include "VertexBuffer.h"
+#include "VertexBufferLayout.h"
 
 class VertexArray{
 	private:
@@ -13,3 +16,5 @@ class VertexArray{
 		void Bind() const;
 		void Unbind() const; 
 };
+
+#endif

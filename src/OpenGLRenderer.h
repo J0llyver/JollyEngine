@@ -1,10 +1,13 @@
+#ifndef OPENGLRENDERER_H
+#define OPENGLRENDERER_H
+
 #include <GL/glew.h>
 
-#include "../IndexBuffer/IndexBuffer.h"
-#include "../VertexArray/VertexArray.h"
-#include "../Shader/Shader.h"
+#include "../IndexBuffer.h"
+#include "../VertexArray.h"
+#include "../Shader.h"
 
-class Renderer{
+class OpenGLRenderer{
 public:
 	
 	void Clear() const;
@@ -17,3 +20,4 @@ public:
 
 };
 
+#endif

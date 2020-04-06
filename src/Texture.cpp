@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-#include "../Renderer/Renderer.h"
+#include "OpenGLRenderer.h"
 #include "../vendor/stb_image/stb_image.h"
 
 Texture::Texture(const std::string& path){

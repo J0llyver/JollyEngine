@@ -1,4 +1,5 @@
 cmake_minimum_required (VERSION 3.10)
+
 project (JollyEngine)
 
 # Linked Libraries
@@ -10,34 +11,43 @@ set (CMAKE_CXX_COMPILER /usr/bin/g++)
 set (CPP_VERSION_COMPILE_FLAG -std=c++1z)
 add_definitions(${CPP_VERSION_COMPILE_FLAG})
 
+# Configure project source directory location
+set (PROJECT_SOURCE_DIR src)
+
+# Configure build output location
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 add_compile_options(-g -Wall -Wformat)
 
 include_directories("${PROJECT_BINARY_DIR}" "src/vendor")
+
 add_executable(
-	JollyEngine 
+	JollyEngine
 
 	src/Application.cpp
 
-	src/VertexBuffer/VertexBuffer.h
-	src/VertexBuffer/VertexBuffer.cpp
+	src/VertexBuffer.h
+	src/VertexBuffer.cpp
 
-	src/IndexBuffer/IndexBuffer.h
-	src/IndexBuffer/IndexBuffer.cpp
+	src/IndexBuffer.h
+	src/IndexBuffer.cpp
 
-	src/VertexArray/VertexArray.h
-	src/VertexArray/VertexArray.cpp
+	src/VertexArray.h
+	src/VertexArray.cpp
 
-	src/VertexBufferLayout/VertexBufferLayout.h	
-	src/VertexBufferLayout/VertexBufferLayout.cpp	
+	src/VertexBufferLayout.h	
+	src/VertexBufferLayout.cpp	
 
-	src/Shader/Shader.h
-	src/Shader/Shader.cpp
+	src/Shader.h
+	src/Shader.cpp
 
-	src/Renderer/Renderer.h
-	src/Renderer/Renderer.cpp
+	src/OpenGLRenderer.h
+	src/OpenGLRenderer.cpp
 
-	src/Texture/Texture.h
-	src/Texture/Texture.cpp
+	src/Texture.h
+	src/Texture.cpp
 
 	src/vendor/stb_image/stb_image.h
 	src/vendor/stb_image/stb_image.cpp

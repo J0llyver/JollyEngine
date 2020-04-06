@@ -1,3 +1,6 @@
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 #include <string>
 
 class Texture {
@@ -19,3 +22,5 @@ private:
 	int				height;
 	int 			bpp;
 };
+
+#endif
