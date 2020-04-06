@@ -28,6 +28,9 @@ add_executable(
 
 	src/Application.cpp
 
+	src/Object.h
+	src/Object.cpp
+
 	src/VertexBuffer.h
 	src/VertexBuffer.cpp
 
