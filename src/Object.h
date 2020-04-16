@@ -3,21 +3,27 @@
 
 #include "Mesh/Mesh.h"
 
+#include <string>
+
+// ToDo: Add pipline for rendering behaviour
+// ToDo: Add ppipline fo game behaviour
 class Object
 {
 public:
 	Object(const Mesh& mesh);
 	~Object();
 
-	SetPosition(const double& x, const double& y, const double& z);
+	int SetPosition(const double& x, const double& y, const double& z);
+	int SetTexture(const std::string& textureLocation);
 
-	const double* GetPosition();	
+	int Render() const;
+
+	double const* GetPosition() const;	
 private:
-	Mesh* mesh;
+	const Mesh* pMesh;
 	
 	double position[3];
-
-	// ToDo: Include Texture			
+	std::string textureLocation;
 };
 
 #endif

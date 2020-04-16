@@ -1,27 +1,50 @@
 #include "Object.h"
 
-// ToDo: Implement Object Class
+#include <fstream>
+#include <iostream>
 
 Object::Object(const Mesh& mesh)
 {
-	this.mesh = &mesh;
-	this.position = new double[3]{ 0, 0, 0 };
+	this->pMesh = &mesh;
+	this->position[0] = 0.0;
+	this->position[1] = 0.0;
+	this->position[2] = 0.0;
 }
 
 Object::~Object()
 {
-	delete this.position;
 }
 
-Object::SetPosition(const double& x, const double& y, const double& z)
+int Object::SetPosition(const double& x, const double& y, const double& z)
 {
-	this.position[0] = x;
-	this.position[1] = y;
-	this.position[2] = z;
+	this->position[0] = x;
+	this->position[1] = y;
+	this->position[2] = z;
+
+	return 0;
 }
 
-const double* Object::GetPosition()
+int Object::SetTexture(const std::string& textureLocation)
 {
-	return this.position;
+	std::ifstream textureFile(textureLocation.c_str());
+	if (!textureFile.good())
+	{
+		std::cout << "File does not exist: " << textureLocation << std::endl;
+		return -1;
+	}
+
+	this->textureLocation = textureLocation;
+
+	return 0;
+}
+
+int Object::Render() const
+{
+	return 0;
+}
+
+double const* Object::GetPosition() const
+{
+	return this->position;
 }
 

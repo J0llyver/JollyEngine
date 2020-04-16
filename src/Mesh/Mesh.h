@@ -14,8 +14,8 @@ class Mesh
 		);
 		~Mesh(); // ToDo: Delete vertexBuffer and indexBuffer
 
-		float* GetVertexBuffer() const { return vertexBuffer; }
-		int* GetIndexBuffer() const { return indexBuffer; }
+		std::vector<float>* GetVertexBuffer() const { return vertexBuffer; }
+		std::vector<int>* GetIndexBuffer() const { return indexBuffer; }
 
 	private:
 		std::vector<float>* vertexBuffer;
