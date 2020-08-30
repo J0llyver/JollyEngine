@@ -2,12 +2,12 @@
 #define MESH_PRIMITIVES_H
 
 #include "MeshPrimitiveType.h"
-#include "../Mesh.h"
+#include "Mesh.h"
 
 class MeshPrimitiveFactory 
 {
 	private:
-		MeshPrimitiveFactory() {}
+		MeshPrimitiveFactory();
 
 	public:
 		MeshPrimitiveFactory(MeshPrimitiveFactory const&) = delete;

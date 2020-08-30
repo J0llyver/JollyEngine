@@ -1,5 +1,6 @@
 #include "MeshStore.h"
-#include "../Primitives/MeshPrimitiveFactory.h"
+
+#include "MeshPrimitiveFactory.h"
 
 namespace 
 {
@@ -27,14 +28,14 @@ void MeshStore::LoadPrimitive(MeshPrimitiveType type, const Mesh* oPrimitive)
 {
 	std::string serializedType = SerializeMeshPrimitiveType(type);
 
-	meshMapIterator = meshMap.find(serializedType);
+	auto geometryMapIterator = geometryMap.find(serializedType);
 
-	if (meshMapIterator != meshMap.end())
+	if (geometryMapIterator != geometryMap.end())
 	{
-		oPrimitive = &(meshMapIterator->second);
+		oPrimitive = &(geometryMapIterator->second);
 	}
 	else 
 	{
-		MeshPrimitivesFactory::CreatePrimitive(type, oPrimitive);
+		MeshPrimitiveFactory::CreatePrimitive(type, oPrimitive);
 	}
 }

@@ -52,6 +52,14 @@ add_executable(
 	src/Texture.h
 	src/Texture.cpp
 
+	src/Mesh/MeshPrimitiveType.h
+	src/Mesh/Mesh.h
+	src/Mesh/Mesh.cpp
+	src/Mesh/MeshPrimitiveFactory.h
+	src/Mesh/MeshPrimitiveFactory.cpp
+	src/Mesh/MeshStore.h
+	src/Mesh/MeshStore.cpp
+
 	src/vendor/stb_image/stb_image.h
 	src/vendor/stb_image/stb_image.cpp
 

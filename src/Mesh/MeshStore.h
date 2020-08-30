@@ -1,8 +1,8 @@
 #ifndef MESH_STORE_H
 #define MESH_STORE_H
 
-#include "../Mesh.h"
-#include "../Primitives/MeshPrimitiveType.h"
+#include "Mesh.h"
+#include "MeshPrimitiveType.h"
 
 #include <string>
 #include <unordered_map>

@@ -1,4 +1,6 @@
-#include "../Mesh.h"
+#include "MeshPrimitiveFactory.h"
+
+#include "Mesh.h"
 
 namespace
 {
@@ -13,7 +15,7 @@ namespace
 
 		std::vector<int> indexBuffer = { 0, 1, 2 };
 
-		Mesh triangle = new Mesh(vertexBuffer, indexBuffer);	
+		Mesh* triangle = new Mesh(vertexBuffer, indexBuffer);	
 
 		return triangle;
 	}
@@ -30,9 +32,9 @@ namespace
 
 		std::vector<int> indexBuffer = { 0, 1, 2, 2, 3, 0 };
 
-		Mesh square = new Mesh(vertexBuffer, indexBuffer);	
+		Mesh* square = new Mesh(vertexBuffer, indexBuffer);	
 
-		return &square;
+		return square;
 	}
 }
 
@@ -42,7 +44,7 @@ void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitiveType type, const Mesh* o
 {
 	switch(type)
 	{
-		case Sqare:
+		case Square:
 				oMesh = CreateSquare();
 			break;
 
@@ -54,6 +56,4 @@ void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitiveType type, const Mesh* o
 				oMesh = CreateTriangle();	
 	}
 }
-
-#endif
 
