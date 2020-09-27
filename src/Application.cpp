@@ -10,11 +10,13 @@
 #include <string>
 #include <sstream>
 
-#include "OpenGLRenderer.h"
-#include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "Mesh/MeshPrimitiveType.h"
+#include "Mesh/MeshPrimitiveFactory.h"
+#include "OpenGLRenderer.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "VertexBuffer.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -49,29 +51,36 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
 	{
-		float positions[16] =
-		{
-			0.0f, 0.0f, 0.0f, 0.0f,
-			100.0f, 0.0f, 1.0f, 0.0f,
-			100.0f, 100.0f, 1.0f, 1.0f,
-			0.0f, 100.0f, 0.0f, 1.0f
-		}; 
+		auto meshPrimitiveFactory = new MeshPrimitiveFactory();
 
-		unsigned int indices[6] =
-		{ 
-			0, 1, 2,
-			2, 3, 0
-		};
+		const Mesh* squareMesh;
+		meshPrimitiveFactory->LoadPrimitive(MeshPrimitiveType::Square, squareMesh);
+
+		//float positions[16] =
+		//{
+		//	0.0f, 0.0f, 0.0f, 0.0f,
+		//	100.0f, 0.0f, 1.0f, 0.0f,
+		//	100.0f, 100.0f, 1.0f, 1.0f,
+		//	0.0f, 100.0f, 0.0f, 1.0f
+		//}; 
+
+		//unsigned int indices[6] =
+		//{ 
+		//	0, 1, 2,
+		//	2, 3, 0
+		//};
+
+		const std::vector<float> positions = squareMesh->GetVertexBuffer();
+		VertexBuffer vb(&positions[0], positions.size() * sizeof(float));
 
 		VertexArray va;
-		VertexBuffer vb(positions, 4 * 4 * sizeof(float));
-
 		VertexBufferLayout layout;
 		layout.Push(GL_FLOAT, 2);
 		layout.Push(GL_FLOAT, 2);
 		va.AddBuffer(vb, layout);
 
-		IndexBuffer ib(indices, 6);
+		const std::vector<unsigned int> indices = squareMesh->GetIndexBuffer();
+		IndexBuffer ib(&indices[0], indices.size());
 
 		glm::vec3 objectPosition(100,100,0);
 		glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
@@ -148,12 +157,13 @@ int main(void)
 		}
 
 		//glDeleteProgram(shader);
+		delete meshPrimitiveFactory;
 	}
 
 	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	//ImGui_ImplOpenGL3_Shutdown();
+	//ImGui_ImplGlfw_Shutdown();
+	//ImGui::DestroyContext();
 
 	glfwTerminate();
 	return 0;

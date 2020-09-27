@@ -1,12 +1,15 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<float>& vertexBuffer, std::vector<int>& indexBuffer) 
-	: vertexBuffer(&vertexBuffer),
-	indexBuffer(&indexBuffer)
-{ }
+#include <iostream>
+
+Mesh::Mesh(std::vector<float> vertexBuffer, std::vector<unsigned int> indexBuffer) 
+{ 
+	this->vertexBuffer = vertexBuffer;
+	this->indexBuffer = indexBuffer;
+}
 
 Mesh::~Mesh() 
 {
-	delete vertexBuffer;
-	delete indexBuffer;
+	vertexBuffer.clear();
+	indexBuffer.clear();
 }

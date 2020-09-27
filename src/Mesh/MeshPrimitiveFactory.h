@@ -4,16 +4,26 @@
 #include "MeshPrimitiveType.h"
 #include "Mesh.h"
 
+#include <string>
+#include <unordered_map>
+
 class MeshPrimitiveFactory 
 {
-	private:
-		MeshPrimitiveFactory();
-
 	public:
+		MeshPrimitiveFactory() = default;
+		~MeshPrimitiveFactory();
+
 		MeshPrimitiveFactory(MeshPrimitiveFactory const&) = delete;
 		void operator=(MeshPrimitiveFactory const&) = delete;
 
-		static void CreatePrimitive(MeshPrimitiveType type, const Mesh* oMesh);
+		void LoadPrimitive(MeshPrimitiveType type, const Mesh* &oPrimitive);
+
+	private:
+		void CreatePrimitive(MeshPrimitiveType type, const Mesh* &oMesh);
+		const Mesh* CreateTriangle();
+		const Mesh* CreateSquare();
+
+		std::unordered_map<MeshPrimitiveType,const Mesh> meshMap;
 };
 
 #endif

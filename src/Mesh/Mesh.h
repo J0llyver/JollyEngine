@@ -2,24 +2,24 @@
 #define MESH_H
 
 #include <vector>
-#include <string>
 
-// ToDo: implement methods in Mesh.cpp, also Constructor and Destructor
+#include <iostream>
 class Mesh 
 {
 	public:
+		Mesh() = default;
 		Mesh(
-			std::vector<float>& vertexBuffer, 
-			std::vector<int>& indexBuffer
+			std::vector<float> vertexBuffer, 
+			std::vector<unsigned int> indexBuffer
 		);
 		~Mesh();
 
-		std::vector<float>* GetVertexBuffer() const { return vertexBuffer; }
-		std::vector<int>* GetIndexBuffer() const { return indexBuffer; }
+		const std::vector<float> GetVertexBuffer() const { return vertexBuffer; }
+		const std::vector<unsigned int> GetIndexBuffer() const { return indexBuffer; }
 
 	private:
-		std::vector<float>* vertexBuffer;
-		std::vector<int>* indexBuffer;
+		std::vector<float> vertexBuffer;
+		std::vector<unsigned int> indexBuffer;
 };
 
 #endif

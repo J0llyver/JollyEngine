@@ -3,8 +3,8 @@
 
 enum MeshPrimitiveType 
 {
-	Square,
-	Triangle	
+	Square = 0,
+	Triangle = 1	
 };
 
 #endif

@@ -1,14 +1,16 @@
 #ifndef VERTEXBUFFER_H
 #define VERTEXBUFFER_H
 
-#pragma once
+#include <vector>
 
 class VertexBuffer{
 private:
 	unsigned int rendererID;
 
 public:
-	VertexBuffer(const void* data, unsigned int size);
+	VertexBuffer(const void* vertexBuffer, unsigned int size);
+	VertexBuffer(const std::vector<float> vertexBuffer, unsigned int  size);
+
 	~VertexBuffer();
 
 	void Bind() const;

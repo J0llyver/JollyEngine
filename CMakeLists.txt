@@ -57,8 +57,8 @@ add_executable(
 	src/Mesh/Mesh.cpp
 	src/Mesh/MeshPrimitiveFactory.h
 	src/Mesh/MeshPrimitiveFactory.cpp
-	src/Mesh/MeshStore.h
-	src/Mesh/MeshStore.cpp
+	# src/Mesh/MeshStore.h
+	# src/Mesh/MeshStore.cpp
 
 	src/vendor/stb_image/stb_image.h
 	src/vendor/stb_image/stb_image.cpp

@@ -1,7 +1,7 @@
 #ifndef INDEXBUFFER_H
 #define INDEXBUFFER_H
 
-#pragma once
+#include <vector>
 
 class IndexBuffer{
 private:
@@ -9,7 +9,8 @@ private:
 	unsigned int count;
 
 public:
-	IndexBuffer(const unsigned int* data, unsigned int count);
+	IndexBuffer(const std::vector<unsigned int>* indexBuffer, unsigned int count);
+	IndexBuffer(const unsigned int* indexBuffer, unsigned int count);
 	~IndexBuffer();
 
 	void Bind() const;
