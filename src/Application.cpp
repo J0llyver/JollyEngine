@@ -50,25 +50,12 @@ int main(void)
 	}
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
+
 	{
 		auto meshPrimitiveFactory = new MeshPrimitiveFactory();
 
 		const Mesh* squareMesh;
 		meshPrimitiveFactory->LoadPrimitive(MeshPrimitiveType::Square, squareMesh);
-
-		//float positions[16] =
-		//{
-		//	0.0f, 0.0f, 0.0f, 0.0f,
-		//	100.0f, 0.0f, 1.0f, 0.0f,
-		//	100.0f, 100.0f, 1.0f, 1.0f,
-		//	0.0f, 100.0f, 0.0f, 1.0f
-		//}; 
-
-		//unsigned int indices[6] =
-		//{ 
-		//	0, 1, 2,
-		//	2, 3, 0
-		//};
 
 		const std::vector<float> positions = squareMesh->GetVertexBuffer();
 		VertexBuffer vb(&positions[0], positions.size() * sizeof(float));
@@ -121,10 +108,11 @@ int main(void)
 			modelMatrix = glm::translate(glm::mat4(1.0f), objectPosition);
 			modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
+			// Move to globally accessable shader
 			Shader shader("resc/shaders/basic.shader");
+
 			shader.Bind();
 			shader.SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
-
 			shader.SetUniform1i("u_Texture", 0);
 			shader.Unbind();
 
@@ -153,17 +141,15 @@ int main(void)
 
 			/* Poll for and process events */
 			glfwPollEvents();
-
 		}
 
-		//glDeleteProgram(shader);
 		delete meshPrimitiveFactory;
-	}
 
-	// Cleanup
-	//ImGui_ImplOpenGL3_Shutdown();
-	//ImGui_ImplGlfw_Shutdown();
-	//ImGui::DestroyContext();
+		// Cleanup
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
 
 	glfwTerminate();
 	return 0;

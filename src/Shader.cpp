@@ -16,7 +16,10 @@ Shader::Shader(const std::string& filepath) {
 	rendererId = CreateShader(source.VertexSource, source.FragmentSource);
 }
 
-Shader::~Shader(){}
+Shader::~Shader()
+{
+	glDeleteProgram(rendererId);
+}
 
 void Shader::Bind() const {
 	if (rendererId != 0){

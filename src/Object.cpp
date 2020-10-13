@@ -6,21 +6,23 @@
 Object::Object(const Mesh& mesh)
 {
 	this->pMesh = &mesh;
-	this->position[0] = 0.0;
-	this->position[1] = 0.0;
-	this->position[2] = 0.0;
+
+	SetPosition(0.0, 0.0, 0.0);
+	SetScale(1.0);
 }
 
-Object::~Object()
+int Object::Render() const
 {
-}
+	// Note: Rendering depends on graphics library used (OpenGL, Vulcan, etc)
 
-int Object::SetPosition(const double& x, const double& y, const double& z)
-{
-	this->position[0] = x;
-	this->position[1] = y;
-	this->position[2] = z;
+	// OpenGL Rendering
+	// ToDo: Retrieve Shader
+	shader.Bind();
+	shader.SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
+	shader.SetUniform1i("u_Texture", 0);
+	shader.Unbind();
 
+	// ToDo: Implement Vulcan rendering
 	return 0;
 }
 
@@ -38,13 +40,13 @@ int Object::SetTexture(const std::string& textureLocation)
 	return 0;
 }
 
-int Object::Render() const
+int Object::Scale(double ratio)
 {
-	return 0;
+	modelMatrix = Scale(ratio, ratio, ratio);
 }
 
-double const* Object::GetPosition() const
+int Object::Scale(double xRatio, double yRatio, double zRatio)
 {
-	return this->position;
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(xRatio, yRatio, zRatio));
 }
 
