@@ -14,7 +14,7 @@
 #include "Mesh/MeshPrimitiveType.h"
 #include "Mesh/MeshPrimitiveFactory.h"
 #include "OpenGLRenderer.h"
-#include "Shader.h"
+#include "ShaderFactory.h"
 #include "Texture.h"
 #include "VertexBuffer.h"
 
@@ -109,12 +109,12 @@ int main(void)
 			modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
 			// Move to globally accessable shader
-			Shader shader("resc/shaders/basic.shader");
+			IShader* shader = ShaderFactory::GetInstance()->GetShader(ShaderType::BasicShader);
 
-			shader.Bind();
-			shader.SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
-			shader.SetUniform1i("u_Texture", 0);
-			shader.Unbind();
+			shader->Bind();
+			shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
+			shader->SetUniform1i("u_Texture", 0);
+			shader->Unbind();
 
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
@@ -131,7 +131,7 @@ int main(void)
 				ImGui::End();
 			}
 
-			renderer.Draw(va, ib, shader);
+			renderer.Draw(va, ib, *shader);
 
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

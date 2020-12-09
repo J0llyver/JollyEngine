@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Mesh/Mesh.h"
 
-#include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
 #include <string>
@@ -17,8 +16,8 @@ public:
 	Object(const Mesh& mesh);
 	~Object() = default;
 
-	int Scale(const double x);
-	int Scale(double xRatio, double yRatio, double zRatio)
+	inline void Scale(const double x);
+	void Scale(double xRatio, double yRatio, double zRatio);
 
 	int SetTexture(const std::string& textureLocation);
 
@@ -26,9 +25,8 @@ public:
 
 private:
 	const Mesh* pMesh;
-	const glm::mat4 modelMatrix;
+	glm::mat4 modelMatrix;
 	
-	double position[3];
 	std::string textureLocation;
 };
 

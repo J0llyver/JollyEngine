@@ -5,7 +5,7 @@
 
 #include "../IndexBuffer.h"
 #include "../VertexArray.h"
-#include "../Shader.h"
+#include "../Shader/IShader.h"
 
 class OpenGLRenderer{
 public:
@@ -15,7 +15,7 @@ public:
 	void Draw(
 		const VertexArray& vertexArray,
 		const IndexBuffer& indexBufer,
-		const Shader& shader
+		const IShader& shader
 	) const;
 
 };

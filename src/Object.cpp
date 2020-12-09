@@ -1,28 +1,38 @@
 #include "Object.h"
 
+#include "Entity.h"
+#include "../ShaderFactory.h"
+
+#include "glm/glm.hpp"
+
 #include <fstream>
 #include <iostream>
 
 Object::Object(const Mesh& mesh)
 {
 	this->pMesh = &mesh;
-
-	SetPosition(0.0, 0.0, 0.0);
-	SetScale(1.0);
+	this->modelMatrix = glm::translate(
+		glm::mat4(1.0f),
+		glm::vec3(this->position[0],this->position[1],this->position[2])
+	);
 }
 
 int Object::Render() const
 {
-	// Note: Rendering depends on graphics library used (OpenGL, Vulcan, etc)
+	IShader* shader = ShaderFactory::GetInstance()->GetShader(ShaderType::BasicShader);
 
-	// OpenGL Rendering
-	// ToDo: Retrieve Shader
-	shader.Bind();
-	shader.SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
-	shader.SetUniform1i("u_Texture", 0);
-	shader.Unbind();
+	// ToDo: Implement Camera and get projectionMatrix and view Matrix
 
-	// ToDo: Implement Vulcan rendering
+	shader->Bind();
+
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
+	glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0,0,0));
+	glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * this->modelMatrix;
+
+	shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
+	shader->SetUniform1i("u_Texture", 0);
+	shader->Unbind();
+
 	return 0;
 }
 
@@ -40,12 +50,12 @@ int Object::SetTexture(const std::string& textureLocation)
 	return 0;
 }
 
-int Object::Scale(double ratio)
+void Object::Scale(double ratio)
 {
-	modelMatrix = Scale(ratio, ratio, ratio);
+	Scale(ratio, ratio, ratio);
 }
 
-int Object::Scale(double xRatio, double yRatio, double zRatio)
+void Object::Scale(double xRatio, double yRatio, double zRatio)
 {
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(xRatio, yRatio, zRatio));
 }

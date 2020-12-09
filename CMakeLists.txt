@@ -28,6 +28,9 @@ add_executable(
 
 	src/Application.cpp
 
+	src/Entity.h
+	src/Entity.cpp
+
 	src/Object.h
 	src/Object.cpp
 
@@ -43,8 +46,12 @@ add_executable(
 	src/VertexBufferLayout.h	
 	src/VertexBufferLayout.cpp	
 
-	src/Shader.h
-	src/Shader.cpp
+	src/Shader/IShader.h
+	src/Shader/BasicShader.h
+	src/Shader/BasicShader.cpp
+
+	src/ShaderFactory.h
+	src/ShaderFactory.cpp
 
 	src/OpenGLRenderer.h
 	src/OpenGLRenderer.cpp
@@ -57,8 +64,6 @@ add_executable(
 	src/Mesh/Mesh.cpp
 	src/Mesh/MeshPrimitiveFactory.h
 	src/Mesh/MeshPrimitiveFactory.cpp
-	# src/Mesh/MeshStore.h
-	# src/Mesh/MeshStore.cpp
 
 	src/vendor/stb_image/stb_image.h
 	src/vendor/stb_image/stb_image.cpp

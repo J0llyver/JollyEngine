@@ -63,6 +63,7 @@ const Mesh* MeshPrimitiveFactory::CreateSquare()
 		100.0f, 100.0f, 1.0f, 1.0f,
 		0.0f, 100.0f, 0.0f, 1.0f
 	};
+
 	std::vector<unsigned int> indexBuffer = { 0, 1, 2, 2, 3, 0 };
 
 	meshMap.insert(std::pair(MeshPrimitiveType::Square, Mesh(vertexBuffer, indexBuffer)));

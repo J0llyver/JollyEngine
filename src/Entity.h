@@ -8,12 +8,12 @@ class Entity : IEntity
 
 public:
 	Entity();
-	~Entity();
+	~Entity() = default;
 
-	void GetPostion() const override;
-	void SetPostition(const double& x, const double& y, const double& t) override;
+	const double* GetPosition() const;
+	void SetPostition(const double& x, const double& y, const double& t);
 
-private:
+protected:
 	double position[3];
 
 };
