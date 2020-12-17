@@ -17,7 +17,7 @@ Object::Object(const Mesh& mesh)
 	);
 }
 
-int Object::Render() const
+int Object::Render(IRenderer renderer) const
 {
 	IShader* shader = ShaderFactory::GetInstance()->GetShader(ShaderType::BasicShader);
 

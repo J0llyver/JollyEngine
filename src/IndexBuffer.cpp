@@ -1,6 +1,6 @@
 #include "IndexBuffer.h"
 
-#include "OpenGLRenderer.h"
+#include <GL/glew.h>
 
 IndexBuffer::IndexBuffer(const std::vector<unsigned int>* indexBuffer, unsigned int count)
 {

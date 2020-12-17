@@ -1,6 +1,6 @@
 #include "VertexBuffer.h"
 
-#include "OpenGLRenderer.h"
+#include <GL/glew.h>
 
 VertexBuffer::VertexBuffer(const std::vector<float> vertexBuffer, unsigned int  size)
 {

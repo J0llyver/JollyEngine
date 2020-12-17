@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "Mesh/Mesh.h"
+#include "Renderer/IRenderer.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -21,7 +22,7 @@ public:
 
 	int SetTexture(const std::string& textureLocation);
 
-	int Render() const;
+	int Render(IRenderer renderer) const;
 
 private:
 	const Mesh* pMesh;

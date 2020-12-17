@@ -13,7 +13,7 @@
 #include "IndexBuffer.h"
 #include "Mesh/MeshPrimitiveType.h"
 #include "Mesh/MeshPrimitiveFactory.h"
-#include "OpenGLRenderer.h"
+#include "Renderer/OpenGLRenderer.h"
 #include "ShaderFactory.h"
 #include "Texture.h"
 #include "VertexBuffer.h"
@@ -80,7 +80,6 @@ int main(void)
 		texture.Bind();
 
 		va.Unbind();
-		vb.Unbind();
 		ib.Unbind();	
 
 		OpenGLRenderer renderer;

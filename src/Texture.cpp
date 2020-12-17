@@ -1,7 +1,8 @@
 #include "Texture.h"
 
-#include "OpenGLRenderer.h"
 #include "../vendor/stb_image/stb_image.h"
+
+#include <GL/glew.h>
 
 Texture::Texture(const std::string& path){
 	this->filePath = path;

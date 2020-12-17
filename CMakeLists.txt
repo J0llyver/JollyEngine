@@ -53,8 +53,9 @@ add_executable(
 	src/ShaderFactory.h
 	src/ShaderFactory.cpp
 
-	src/OpenGLRenderer.h
-	src/OpenGLRenderer.cpp
+	src/Renderer/IRenderer.h
+	src/Renderer/OpenGLRenderer.h
+	src/Renderer/OpenGLRenderer.cpp
 
 	src/Texture.h
 	src/Texture.cpp
