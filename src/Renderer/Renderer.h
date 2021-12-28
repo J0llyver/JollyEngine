@@ -1,20 +1,13 @@
-#ifndef IRENDERER_H
-#define IRENDERER_H
+#pragma once
 
-#include "../IndexBuffer.h"
-#include "../VertexArray.h"
-#include "../Shader/IShader.h"
+#include "src/IndexBuffer.h"
+#include "src/Shader/Shader.h"
+#include "src/VertexArray.h"
 
 #include <vector>
 
 class IRenderer {
 public:
 	virtual void Clear() const = 0;
-	virtual void Draw(
-		const std::vector<float> vertexArray,
-		const std::vector<unsigned int> indexBufer,
-		const IShader& shader
-	) const = 0;
+	virtual void Draw(const std::vector<float> &vertexArray, const std::vector<unsigned int> &indexBufer, const Shader& &shader) const = 0;
 };
-
-#endif

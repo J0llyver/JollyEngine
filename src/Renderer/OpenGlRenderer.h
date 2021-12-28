@@ -1,10 +1,9 @@
-#ifndef OPENGLRENDERER_H
-#define OPENGLRENDERER_H
+#pragma once
 
-#include "../Shader/IShader.h"
-#include "../VertexArray.h"
-#include "../VertexBuffer.h"
-#include "IRenderer.h"
+#include "src/Shader/Shader.h"
+#include "src/VertexArray.h"
+#include "src/VertexBuffer.h"
+#include "Renderer.h"
 
 #include <vector>
 
@@ -24,4 +23,3 @@ private:
 	IndexBuffer indexBuffer;
 };
 
-#endif

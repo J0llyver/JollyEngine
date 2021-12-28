@@ -1,18 +1,16 @@
-#ifndef SHADERFACTORY_H
-#define SHADERFACTORY_H
+#pragma once
 
-#include "Shader/IShader.h"
+#include "Shader/Shader.h"
 
 #include <unordered_map>
 
-enum ShaderType 
-{
+enum ShaderType {
 	BasicShader = 0
 };
 
 // Note: This Singleton is not thread save.
-class ShaderFactory
-{
+class ShaderFactory {
+
 private:
 	ShaderFactory() = default;
 	~ShaderFactory() = default;
@@ -28,5 +26,3 @@ public:
 	IShader* GetShader(ShaderType type);
 
 };
-
-#endif
