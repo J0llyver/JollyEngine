@@ -1,21 +1,11 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef IENTITY_H
+#define IENTITY_H
 
-#include "IEntity.h"
 
-class Entity : IEntity
+struct IEntity
 {
-
-public:
-	Entity();
-	~Entity() = default;
-
-	const double* GetPosition() const;
-	void SetPostition(const double& x, const double& y, const double& t);
-
-protected:
-	double position[3];
-
+	virtual int SetPosition(const double& x, const double& y, const double& z) = 0;
+	virtual const double* GetPosition() const = 0;	
 };
 
 #endif
