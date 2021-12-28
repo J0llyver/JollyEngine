@@ -1,5 +1,6 @@
-#ifndef MESH_PRIMITIVE_TYPE_H
-#define MESH_PRIMITIVE_TYPE_H
+#pragma once
+
+#include<string>
 
 namespace MeshPrimitive
 {
@@ -9,17 +10,15 @@ namespace MeshPrimitive
 		Triangle = 1	
 	};
 
-	string SerializeType(Type type)
+	std::string SerializeType(Type type)
 	{
 		switch(type)
 		{
 			case Type::Square:
 				return "Square";
 
-			case Type::Triangle
+			case Type::Triangle:
 				return "Triangle";
 		}
 	}
 }
-
-#endif

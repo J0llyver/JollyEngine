@@ -7,8 +7,7 @@ void OpenGlRenderer::Clear() const {
 }
 
 // This draw call needs to render all objects
-void OpenGlRenderer::Draw(const std::vector<float> vertices, const std::vector<unsigned int> indices, const IShader& shader) const
-{
+void OpenGlRenderer::Draw(const std::vector<float> &vertices, const std::vector<unsigned int> &indices, const IShader& &shader) const {
 	// Ojects with a single isntance for each rendering context
 	VertexBufferLayout layout;
 	layout.Push(GL_FLOAT, 2);
@@ -34,12 +33,11 @@ void OpenGlRenderer::Draw(const std::vector<float> vertices, const std::vector<u
     shader.Unbind();
 }
 
-void OpenGlRenderer::BindVertexBuffer(const std::vector vertexBuffer, const VertexBufferLaout layout)
-{
+void OpenGlRenderer::BindVertexBuffer(const std::vector &vertexBuffer, const VertexBufferLayout &layout) {
 	va.AddBuffer(vertexBuffer, layout);
 }
 
-void OpenGlRenderer::UnbindVertexBuffer(/* TODO: poperly define method */)
-{
+void OpenGlRenderer::UnbindVertexBuffer(/* TODO: poperly define method */) {
+
 }
 

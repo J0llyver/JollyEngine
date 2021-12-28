@@ -1,5 +1,3 @@
-cmake_minimum_required (VERSION 3.10)
-
 project (JollyEngine)
 
 # Linked Libraries
@@ -23,68 +21,12 @@ add_compile_options(-g -Wall -Wformat)
 
 include_directories("${PROJECT_BINARY_DIR}" "src/vendor")
 
-add_executable(
-	JollyEngine
-
-	src/Application.cpp
-
-	src/Entity.h
-	src/Entity.cpp
-
-	src/Object.h
-	src/Object.cpp
-
-	src/VertexBuffer.h
-	src/VertexBuffer.cpp
-
-	src/IndexBuffer.h
-	src/IndexBuffer.cpp
-
-	src/VertexArray.h
-	src/VertexArray.cpp
-
-	src/VertexBufferLayout.h	
-	src/VertexBufferLayout.cpp	
-
-	src/Shader/IShader.h
-	src/Shader/BasicShader.h
-	src/Shader/BasicShader.cpp
-
-	src/ShaderFactory.h
-	src/ShaderFactory.cpp
-
-	src/Renderer/IRenderer.h
-	src/Renderer/OpenGLRenderer.h
-	src/Renderer/OpenGLRenderer.cpp
-
-	src/Texture.h
-	src/Texture.cpp
-
-	src/Mesh/MeshPrimitiveType.h
-	src/Mesh/Mesh.h
-	src/Mesh/Mesh.cpp
-	src/Mesh/MeshPrimitiveFactory.h
-	src/Mesh/MeshPrimitiveFactory.cpp
-
-	src/vendor/stb_image/stb_image.h
-	src/vendor/stb_image/stb_image.cpp
-
-	src/vendor/imgui/imgui.cpp
-	src/vendor/imgui/imgui.h
-	src/vendor/imgui/imgui_demo.cpp
-	src/vendor/imgui/imgui_draw.cpp
-	src/vendor/imgui/imgui_widgets.cpp
-	src/vendor/imgui/imgui_internal.h
-	src/vendor/imgui/imconfig.h
-
-	src/vendor/imgui/imstb_rectpack.h
-	src/vendor/imgui/imstb_textedit.h
-	src/vendor/imgui/imstb_truetype.h
-
-	src/vendor/imgui/imgui_impl_opengl3.cpp
-	src/vendor/imgui/imgui_impl_opengl3.h
-	src/vendor/imgui/imgui_impl_glfw.h
-	src/vendor/imgui/imgui_impl_glfw.cpp
+file(
+  GLOB_RECURSE
+  JOLLYENGINE_SRC
+  "src/*.cpp"
+  "src/*.h"
 )
 
-target_link_libraries(JollyEngine ${LINK_LIBRARIES} )
+add_executable(JollyEngine ${JOLLYENGINE_SRC})
+target_link_libraries(JollyEngine ${LINK_LIBRARIES})
