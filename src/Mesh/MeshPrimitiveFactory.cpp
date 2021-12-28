@@ -1,72 +1,52 @@
 #include "MeshPrimitiveFactory.h"
 
-MeshPrimitiveFactory::~MeshPrimitiveFactory() { meshMap.clear(); }
+Mesh MeshPrimitiveFactory::LoadPrimitive(const MeshPrimitive::Type &type) {
+  const uint32_t typeId = static_cast<uint32_t>(type);
+  if (meshMap.find(typeId) == meshMap.end()) {
+    CreatePrimitive(type);
+  }
 
-void MeshPrimitiveFactory::LoadPrimitive(MeshPrimitive::Type type, const Mesh* &oPrimitive)
-{
-	auto meshMapIterator = meshMap.find(type);
-
-	if (meshMapIterator != meshMap.end())
-	{
-		oPrimitive = &(meshMapIterator->second);
-	}
-	else 
-	{
-		CreatePrimitive(type, oPrimitive);
-	}
+  return meshMap[typeId];
 }
 
-void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitive::Type type, const Mesh* &oMesh)
-{
-	switch(type)
-	{
-		case Square:
-			oMesh = CreateSquare();
-			break;
+void MeshPrimitiveFactory::CreatePrimitive(const MeshPrimitive::Type &type) {
+  const std::vector<float> newVertices;
+  const std::vector<uint32_t> newIndices;
 
-		case Triangle:
-			oMesh = CreateTriangle();
-			break;
+  switch (type) {
+    case MeshPrimitive::Square: {
+      InitializeSquare(newVertices, newIndices);
+    }
+    case MeshPrimitive::Triangle:
+    default: {
+      InitializeTriangle(newVertices, newIndices);
+    }
+  }
 
-		default:
-			oMesh = CreateTriangle();	
-			break;
-	}
+  const int startOfNewVertices = vertexBuffer.size();
+  const int startOfNewIndices = indexBuffer.size();
+
+  vertexBuffer.insert(vertexBuffer.end(), newVertices.begin(), newVertices.end());
+  indexBuffer.insert(indexBuffer.end(), newIndices.begin(), newIndices.end());
+
+  Mesh mesh = {&vertexBuffer[startOfNewVertices], &indexBuffer[startOfNewIndices], newVertices.size(),
+               newIndices.size()};
+
+  meshMap.insert(std::pair(static_cast<uint32_t>(MeshPrimitive::Type::Triangle), Mesh(vertexBuffer, indexBuffer)));
 }
 
-const Mesh* MeshPrimitiveFactory::CreateTriangle()
-{
-	std::vector<float> vertexBuffer = 
-	{
-		-0.5, 0.0, 0.0,
-		0.5, 0.0, 0.0,
-		0.0, 1.0, 0.0
-	};
+void MeshPrimitiveFactory::InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) {
+  vertices = {-0.5, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0, 0.0};
 
-	std::vector<unsigned int> indexBuffer = { 0, 1, 2 };
-
-	meshMap.insert(std::pair(MeshPrimitive::Type::Triangle, Mesh(vertexBuffer, indexBuffer)));
-
-	return &(meshMap.find(MeshPrimitive::Type::Triangle)->second);
+  indices = {0, 1, 2};
 }
 
-const Mesh* MeshPrimitiveFactory::CreateSquare()
-{
-	std::vector<float> vertexBuffer = 
-	{
-		//-0.5, -0.5, 0.0,
-		//0.5, -0.5, 0.0,
-		//0.5, 0.5, 0.0,
-		//-0.5, 0.5, 0.0
-		0.0f, 0.0f, 0.0f, 0.0f,
-		100.0f, 0.0f, 1.0f, 0.0f,
-		100.0f, 100.0f, 1.0f, 1.0f,
-		0.0f, 100.0f, 0.0f, 1.0f
-	};
-
-	std::vector<unsigned int> indexBuffer = { 0, 1, 2, 2, 3, 0 };
-
-	meshMap.insert(std::pair(MeshPrimitive::Type::Square, Mesh(vertexBuffer, indexBuffer)));
-
-	return &(meshMap.find(MeshPrimitive::Type::Square)->second);
+void MeshPrimitiveFactory::InitializeSquare() {
+  newVertices = {
+      //-0.5, -0.5, 0.0,
+      // 0.5, -0.5, 0.0,
+      // 0.5, 0.5, 0.0,
+      //-0.5, 0.5, 0.0
+      0.0f, 0.0f, 0.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 100.0f, 100.0f, 1.0f, 1.0f, 0.0f, 100.0f, 0.0f, 1.0f};
+  newIndices = {0, 1, 2, 2, 3, 0};
 }

@@ -1,34 +1,25 @@
 #include "ShaderFactory.h"
 
-#include "Shader/IShader.h"
 #include "Shader/BasicShader.h"
+#include "Shader/Shader.h"
 
-ShaderFactory* ShaderFactory::GetInstance()
-{
-	static ShaderFactory shaderFactoryInstance;
-	return &shaderFactoryInstance;
+ShaderFactory *ShaderFactory::GetInstance() {
+  static ShaderFactory shaderFactoryInstance;
+  return &shaderFactoryInstance;
 }
 
-IShader* ShaderFactory::GetShader(ShaderType type)
-{
-	switch(type)
-	{
-		case ShaderType::BasicShader:
-		{
-			_shaders.insert(std::pair<ShaderType, IShader*>(
-				ShaderType::BasicShader,
-				new Shaders::BasicShader("resc/shaders/basic.shader")
-			));
-		}
-		default:
-		{
-			_shaders.insert(std::pair<ShaderType, IShader*>(
-				ShaderType::BasicShader,
-				new Shaders::BasicShader("resc/shaders/basic.shader")
-			));
-		}
-	}
-	return _shaders.find(type)->second;
+std::shared_ptr<Shader> ShaderFactory::GetShader(const ShaderType &type) {
+  switch (type) {
+    case ShaderType::BasicShader: {
+      shaders.insert(std::make_pair(static_cast<uint32_t>(ShaderType::BasicShader),
+                                    Shaders::BasicShader("resc/shaders/basic.shader")));
+      break;
+    }
+    default: {
+      shaders.insert(std::make_pair(static_cast<uint32_t>(ShaderType::BasicShader),
+                                    Shaders::BasicShader("resc/shaders/basic.shader")));
+    }
+  }
 
-	return nullptr;
+  return shaders[type];
 }

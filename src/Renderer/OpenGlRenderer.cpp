@@ -2,42 +2,36 @@
 
 #include <iostream>
 
-void OpenGlRenderer::Clear() const {
-    glClear(GL_COLOR_BUFFER_BIT);
-}
+#include "src/IndexBuffer.h"
+#include "src/VertexArray.h"
+#include "src/VertexBuffer.h"
+
+void OpenGlRenderer::Clear() const { glClear(GL_COLOR_BUFFER_BIT); }
 
 // This draw call needs to render all objects
-void OpenGlRenderer::Draw(const std::vector<float> &vertices, const std::vector<unsigned int> &indices, const Shader& &shader) const {
-	// Ojects with a single isntance for each rendering context
-	VertexBufferLayout layout;
-	layout.Push(GL_FLOAT, 2);
-	layout.Push(GL_FLOAT, 2);
+void OpenGlRenderer::Draw(const float *vertices, const uint32_t *indices, const uint32_t numberOfVertices,
+                          const uint32_t numberOfIndices, std::shared_ptr<Shader> &shader) const {
+  VertexBufferLayout layout;
+  layout.Push(GL_FLOAT, 2);
+  layout.Push(GL_FLOAT, 2);
 
-	VertexArray vertexArray;
-	IndexBuffer indexBuffer(&indices[0], indices.size());
-	//-------------
+  VertexBuffer vertexBuffer(&vertices[0], numberOfVertices * 3 * sizeof(float));
 
-	VertexBuffer vertexBuffer(&vertices[0], vertices.size() * sizeof(float));
+  VertexArray vertexArray;
+  vertexArray.AddBuffer(vertexBuffer, layout);
 
-	vertexArray.Bind();
-	indexBuffer.Bind();
-    shader.Bind();
+  IndexBuffer indexBuffer(indices, numberOfIndices);
 
+  vertexArray.Bind();
+  indexBuffer.Bind();
 
-    glDrawElements(GL_TRIANGLES, indexBuffer.GetCount(), GL_UNSIGNED_INT, nullptr);
+  shader->Bind();
 
-	vertexBuffer.Unbind();
-	vertexArray.Unbind();
-	indexBuffer.Unbind();	
+  glDrawElements(GL_TRIANGLES, indexBuffer.GetCount(), GL_UNSIGNED_INT, nullptr);
 
-    shader.Unbind();
+  vertexBuffer.Unbind();
+  vertexArray.Unbind();
+  indexBuffer.Unbind();
+
+  shader->Unbind();
 }
-
-void OpenGlRenderer::BindVertexBuffer(const std::vector &vertexBuffer, const VertexBufferLayout &layout) {
-	va.AddBuffer(vertexBuffer, layout);
-}
-
-void OpenGlRenderer::UnbindVertexBuffer(/* TODO: poperly define method */) {
-
-}
-

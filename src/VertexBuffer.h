@@ -3,18 +3,18 @@
 
 #include <vector>
 
-class VertexBuffer{
-private:
-	unsigned int rendererID;
+class VertexBuffer {
+ private:
+  unsigned int rendererID;
 
-public:
-	VertexBuffer(const void* vertexBuffer, unsigned int size);
-	VertexBuffer(const std::vector<float> vertexBuffer, unsigned int  size);
+ public:
+  // VertexBuffer(const void* vertexBuffer, unsigned int &size);
+  VertexBuffer(const std::vector<float> &vertexBuffer, const unsigned int &size);
 
-	~VertexBuffer();
+  ~VertexBuffer();
 
-	void Bind() const;
-	void Unbind() const;
+  void Bind() const;
+  void Unbind() const;
 };
 
 #endif

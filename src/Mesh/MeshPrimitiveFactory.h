@@ -1,30 +1,34 @@
-#ifndef MESH_PRIMITIVES_H
-#define MESH_PRIMITIVES_H
-
-#include "MeshPrimitive.h"
-#include "Mesh.h"
+#pragma once
 
 #include <string>
 #include <unordered_map>
+#include <vector>
 
-class MeshPrimitiveFactory 
-{
-	public:
-		MeshPrimitiveFactory() = default;
-		~MeshPrimitiveFactory();
+#include "MeshPrimitive.h"
 
-		MeshPrimitiveFactory(MeshPrimitiveFactory const&) = delete;
-		void operator=(MeshPrimitiveFactory const&) = delete;
-
-		void LoadPrimitive(MeshPrimitive::Type type, const Mesh* &oPrimitive);
-
-	private:
-		void CreatePrimitive(MeshPrimitive::Type type, const Mesh* &oMesh);
-		const Mesh* CreateTriangle();
-		const Mesh* CreateSquare();
-
-		std::unordered_map<MeshPrimitive::Type,const Mesh> meshMap;
+struct Mesh {
+  float *vertices;
+  uint32_t *indices;
+  uint32_t numberOfVertices;
+  uint32_t numberOfIndices;
 };
 
-#endif
+class MeshPrimitiveFactory {
+ public:
+  MeshPrimitiveFactory() = default;
+  ~MeshPrimitiveFactory() = default;
 
+  MeshPrimitiveFactory(MeshPrimitiveFactory const &) = delete;
+  void operator=(MeshPrimitiveFactory const &) = delete;
+
+  Mesh LoadPrimitive(const MeshPrimitive::Type &type);
+
+ private:
+  const Mesh &CreatePrimitive(const MeshPrimitive::Type &type);
+  void InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) const;
+  void InitializeSquare(std::vector<float> &vertices, std::vector<uint32_t> &indices) const;
+
+  std::unordered_map<uint32_t, Mesh> meshMap;
+  std::vector<float> vertexBuffer;
+  std::vector<uint32_t> indexBuffer;
+};

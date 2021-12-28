@@ -1,11 +1,15 @@
-#ifndef IENTITY_H
-#define IENTITY_H
+#pragma once
 
+#include <array>
 
-struct IEntity
-{
-	virtual int SetPosition(const double& x, const double& y, const double& z) = 0;
-	virtual const double* GetPosition() const = 0;	
+class Entity {
+ public:
+  Entity();
+  ~Entity() = default;
+
+  virtual const std::array<double, 3> GetPosition() const;
+  virtual void SetPosition(const double &x, const double &y, const double &z);
+
+ private:
+  std::array<double, 3> position;
 };
-
-#endif

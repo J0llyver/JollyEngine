@@ -1,20 +1,17 @@
-#ifndef VERTEXARRAY_H
-#define VERTEXARRAY_H
+#pragma once
 
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 
-class VertexArray{
-	private:
-		unsigned int rendererId;
+class VertexArray {
+ private:
+  unsigned int rendererId;
 
-	public:
-		VertexArray();
-		~VertexArray();
+ public:
+  VertexArray();
+  ~VertexArray();
 
-		void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
-		void Bind() const;
-		void Unbind() const; 
+  void AddBuffer(const VertexBuffer &vb, const VertexBufferLayout &layout);
+  void Bind() const;
+  void Unbind() const;
 };
-
-#endif

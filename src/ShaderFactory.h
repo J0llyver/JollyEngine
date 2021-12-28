@@ -1,28 +1,25 @@
 #pragma once
 
-#include "Shader/Shader.h"
-
+#include <memory>
 #include <unordered_map>
 
-enum ShaderType {
-	BasicShader = 0
-};
+#include "Shader/Shader.h"
+
+enum ShaderType { BasicShader = 0 };
 
 // Note: This Singleton is not thread save.
 class ShaderFactory {
+ private:
+  ShaderFactory() = default;
+  ~ShaderFactory() = default;
 
-private:
-	ShaderFactory() = default;
-	~ShaderFactory() = default;
+  std::unordered_map<ShaderType, std::shared_ptr<Shader>> shaders;
 
-	std::unordered_map<ShaderType, IShader*> _shaders;
+ public:
+  ShaderFactory(ShaderFactory *other) = delete;
+  void operator=(const ShaderFactory &) = delete;
 
-public:
-	ShaderFactory(ShaderFactory* other) = delete;
-	void operator=(const ShaderFactory &) = delete;
+  static std::shared_ptr<ShaderFactory> GetInstance();
 
-	static ShaderFactory* GetInstance();
-
-	IShader* GetShader(ShaderType type);
-
+  std::shared_ptr<Shader> GetShader(const ShaderType &type);
 };
