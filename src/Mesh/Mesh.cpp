@@ -2,11 +2,13 @@
 
 #include <iostream>
 
-Mesh::Mesh(std::vector<float> vertexBuffer, std::vector<unsigned int> indexBuffer) 
-{ 
-	this->vertexBuffer = vertexBuffer;
-	this->indexBuffer = indexBuffer;
-}
+Mesh::Mesh(
+	std::vector<float> vertexBuffer,
+	std::vector<unsigned int> indexBuffer
+) : name(name),
+	indexBuffer(indexBuffer),
+	vertexBuffer(vertexBuffer)
+{}	
 
 Mesh::~Mesh() 
 {

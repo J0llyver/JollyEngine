@@ -2,7 +2,7 @@
 
 MeshPrimitiveFactory::~MeshPrimitiveFactory() { meshMap.clear(); }
 
-void MeshPrimitiveFactory::LoadPrimitive(MeshPrimitiveType type, const Mesh* &oPrimitive)
+void MeshPrimitiveFactory::LoadPrimitive(MeshPrimitive::Type type, const Mesh* &oPrimitive)
 {
 	auto meshMapIterator = meshMap.find(type);
 
@@ -16,7 +16,7 @@ void MeshPrimitiveFactory::LoadPrimitive(MeshPrimitiveType type, const Mesh* &oP
 	}
 }
 
-void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitiveType type, const Mesh* &oMesh)
+void MeshPrimitiveFactory::CreatePrimitive(MeshPrimitive::Type type, const Mesh* &oMesh)
 {
 	switch(type)
 	{
@@ -45,9 +45,9 @@ const Mesh* MeshPrimitiveFactory::CreateTriangle()
 
 	std::vector<unsigned int> indexBuffer = { 0, 1, 2 };
 
-	meshMap.insert(std::pair(MeshPrimitiveType::Triangle, Mesh(vertexBuffer, indexBuffer)));
+	meshMap.insert(std::pair(MeshPrimitive::Type::Triangle, Mesh(vertexBuffer, indexBuffer)));
 
-	return &(meshMap.find(MeshPrimitiveType::Triangle)->second);
+	return &(meshMap.find(MeshPrimitive::Type::Triangle)->second);
 }
 
 const Mesh* MeshPrimitiveFactory::CreateSquare()
@@ -66,7 +66,7 @@ const Mesh* MeshPrimitiveFactory::CreateSquare()
 
 	std::vector<unsigned int> indexBuffer = { 0, 1, 2, 2, 3, 0 };
 
-	meshMap.insert(std::pair(MeshPrimitiveType::Square, Mesh(vertexBuffer, indexBuffer)));
+	meshMap.insert(std::pair(MeshPrimitive::Type::Square, Mesh(vertexBuffer, indexBuffer)));
 
-	return &(meshMap.find(MeshPrimitiveType::Square)->second);
+	return &(meshMap.find(MeshPrimitive::Type::Square)->second);
 }

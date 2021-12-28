@@ -7,7 +7,6 @@
 class Mesh 
 {
 	public:
-		Mesh() = default;
 		Mesh(
 			std::vector<float> vertexBuffer, 
 			std::vector<unsigned int> indexBuffer
@@ -20,6 +19,7 @@ class Mesh
 	private:
 		std::vector<float> vertexBuffer;
 		std::vector<unsigned int> indexBuffer;
+		std::string name;
 };
 
 #endif

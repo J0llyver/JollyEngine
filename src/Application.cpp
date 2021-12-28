@@ -11,9 +11,9 @@
 #include <sstream>
 
 #include "IndexBuffer.h"
-#include "Mesh/MeshPrimitiveType.h"
+#include "Mesh/MeshPrimitive.h"
 #include "Mesh/MeshPrimitiveFactory.h"
-#include "Renderer/OpenGLRenderer.h"
+#include "Renderer/OpenGlRenderer.h"
 #include "ShaderFactory.h"
 #include "Texture.h"
 #include "VertexBuffer.h"
@@ -55,7 +55,7 @@ int main(void)
 		auto meshPrimitiveFactory = new MeshPrimitiveFactory();
 
 		const Mesh* squareMesh;
-		meshPrimitiveFactory->LoadPrimitive(MeshPrimitiveType::Square, squareMesh);
+		meshPrimitiveFactory->LoadPrimitive(MeshPrimitive::Type::Square, squareMesh);
 
 		const std::vector<float> positions = squareMesh->GetVertexBuffer();
 		VertexBuffer vb(&positions[0], positions.size() * sizeof(float));
@@ -82,7 +82,7 @@ int main(void)
 		va.Unbind();
 		ib.Unbind();	
 
-		OpenGLRenderer renderer;
+		OpenGlRenderer renderer;
 		
 		const char* glsl_version = "#version 130";
 		IMGUI_CHECKVERSION();

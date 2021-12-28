@@ -1,12 +1,13 @@
-#include "OpenGLRenderer.h"
+#include "OpenGlRenderer.h"
 
 #include <iostream>
 
-void OpenGLRenderer::Clear() const {
+void OpenGlRenderer::Clear() const {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void OpenGLRenderer::Draw(const std::vector<float> vertices, const std::vector<unsigned int> indices, const IShader& shader) const
+// This draw call needs to render all objects
+void OpenGlRenderer::Draw(const std::vector<float> vertices, const std::vector<unsigned int> indices, const IShader& shader) const
 {
 	// Ojects with a single isntance for each rendering context
 	VertexBufferLayout layout;
@@ -19,7 +20,6 @@ void OpenGLRenderer::Draw(const std::vector<float> vertices, const std::vector<u
 
 	VertexBuffer vertexBuffer(&vertices[0], vertices.size() * sizeof(float));
 
-	va.AddBuffer(vertexBuffer, layout);
 	vertexArray.Bind();
 	indexBuffer.Bind();
     shader.Bind();
@@ -33,3 +33,13 @@ void OpenGLRenderer::Draw(const std::vector<float> vertices, const std::vector<u
 
     shader.Unbind();
 }
+
+void OpenGlRenderer::BindVertexBuffer(const std::vector vertexBuffer, const VertexBufferLaout layout)
+{
+	va.AddBuffer(vertexBuffer, layout);
+}
+
+void OpenGlRenderer::UnbindVertexBuffer(/* TODO: poperly define method */)
+{
+}
+
