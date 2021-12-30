@@ -1,22 +1,20 @@
-#ifndef INDEXBUFFER_H
-#define INDEXBUFFER_H
+#pragma once
 
+#include <cstdint>
 #include <vector>
 
-class IndexBuffer{
-private:
-	unsigned int rendererID;
-	unsigned int count;
+class IndexBuffer {
+ public:
+  IndexBuffer(const std::vector<uint32_t> *indexBuffer, uint32_t size);
+  IndexBuffer(const uint32_t *indexBuffer, uint32_t size);
+  ~IndexBuffer();
 
-public:
-	IndexBuffer(const std::vector<unsigned int>* indexBuffer, unsigned int count);
-	IndexBuffer(const unsigned int* indexBuffer, unsigned int count);
-	~IndexBuffer();
+  void Bind() const;
+  void Unbind() const;
 
-	void Bind() const;
-	void Unbind() const;
+  inline uint32_t size() const { return numberOfIndices; }
 
-	inline unsigned int GetCount() const { return count; }
+ private:
+  uint32_t rendererID;
+  uint32_t numberOfIndices;
 };
-
-#endif

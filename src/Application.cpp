@@ -6,7 +6,7 @@
 #include <sstream>
 
 #include "Mesh/MeshPrimitiveFactory.h"
-#include "Renderer/OpenGlRenderer.h"
+#include "RenderingContext.h"
 #include "ShaderFactory.h"
 #include "Texture.h"
 #include "VertexBuffer.h"
@@ -57,7 +57,7 @@ int main(void) {
     Texture texture("resc/textures/DwarfFortressMap.png");
     texture.Bind();
 
-    auto renderer = std::make_shared<OpenGlRenderer>();
+    auto renderer = std::make_shared<RenderingContext>(RenderingContextType::OpenGL);
 
     const char *glsl_version = "#version 130";
     IMGUI_CHECKVERSION();

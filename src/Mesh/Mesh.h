@@ -8,4 +8,3 @@ struct Mesh {
   uint32_t numberOfVertices;
   uint32_t numberOfIndices;
 };
-

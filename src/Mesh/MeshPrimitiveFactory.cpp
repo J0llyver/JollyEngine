@@ -16,6 +16,7 @@ void MeshPrimitiveFactory::CreatePrimitive(const MeshPrimitive::Type &type) {
   switch (type) {
     case MeshPrimitive::Square: {
       InitializeSquare(newVertices, newIndices);
+      break;
     }
     case MeshPrimitive::Triangle:
     default: {
@@ -32,7 +33,7 @@ void MeshPrimitiveFactory::CreatePrimitive(const MeshPrimitive::Type &type) {
   Mesh mesh = {&vertexBuffer[startOfNewVertices], &indexBuffer[startOfNewIndices],
                static_cast<uint32_t>(newVertices.size()), static_cast<uint32_t>(newIndices.size())};
 
-  meshMap.insert(std::pair(static_cast<uint32_t>(MeshPrimitive::Type::Triangle), mesh));
+  meshMap.insert(std::pair(static_cast<uint32_t>(type), mesh));
 }
 
 void MeshPrimitiveFactory::InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) const {

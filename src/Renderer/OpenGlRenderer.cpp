@@ -19,6 +19,8 @@ void OpenGlRenderer::Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) con
   VertexArray vertexArray;
   vertexArray.AddBuffer(vertexBuffer, layout);
 
+  // std::cout << mesh.numberOfIndices << std::endl;
+
   IndexBuffer indexBuffer(mesh.indices, mesh.numberOfIndices);
 
   vertexArray.Bind();
@@ -26,7 +28,7 @@ void OpenGlRenderer::Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) con
 
   shader->Bind();
 
-  glDrawElements(GL_TRIANGLES, indexBuffer.GetCount(), GL_UNSIGNED_INT, nullptr);
+  glDrawElements(GL_TRIANGLES, indexBuffer.size(), GL_UNSIGNED_INT, nullptr);
 
   vertexBuffer.Unbind();
   vertexArray.Unbind();
