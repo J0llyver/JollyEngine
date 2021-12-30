@@ -7,3 +7,4 @@ libindexbuffer.a
 *.cmake
 src/tags
 *.swp
+build

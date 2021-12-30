@@ -1,17 +1,10 @@
 #pragma once
 
-#include <string>
 #include <unordered_map>
 #include <vector>
 
-#include "MeshPrimitive.h"
-
-struct Mesh {
-  float *vertices;
-  uint32_t *indices;
-  uint32_t numberOfVertices;
-  uint32_t numberOfIndices;
-};
+#include "src/Mesh/Mesh.h"
+#include "src/Mesh/MeshPrimitive.h"
 
 class MeshPrimitiveFactory {
  public:
@@ -24,7 +17,7 @@ class MeshPrimitiveFactory {
   Mesh LoadPrimitive(const MeshPrimitive::Type &type);
 
  private:
-  const Mesh &CreatePrimitive(const MeshPrimitive::Type &type);
+  void CreatePrimitive(const MeshPrimitive::Type &type);
   void InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) const;
   void InitializeSquare(std::vector<float> &vertices, std::vector<uint32_t> &indices) const;
 

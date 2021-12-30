@@ -4,9 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
 
-#include "Mesh/MeshPrimitive.h"
 #include "Mesh/MeshPrimitiveFactory.h"
 #include "Renderer/OpenGlRenderer.h"
 #include "ShaderFactory.h"
@@ -85,7 +83,7 @@ int main(void) {
       modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
       // Move to globally accessable shader
-      auto shader = ShaderFactory::GetInstance()->GetShader(ShaderType::BasicShader);
+      auto shader = ShaderFactory::GetInstance()->GetShader(ShaderType::Basic);
 
       shader->Bind();
       shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
@@ -108,7 +106,7 @@ int main(void) {
         ImGui::End();
       }
 
-      renderer->Draw(positions, indices, shader);
+      renderer->Draw(squareMesh, shader);
 
       ImGui::Render();
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

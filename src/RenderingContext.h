@@ -1,32 +1,25 @@
-#ifndef RENDERINGCONTEXT_H
-#define RENDERINGCONTEXT_H
+#pragma once
 
-#include "Object.h"
-#include "Renderer/IRenderer.h"
-
+#include <memory>
 #include <unordered_map>
 
-enum RenderingContextType
-{
-	DirectX = 0,
-	OpenGL = 1,
-	Vulcan = 2
-}
+#include "Object.h"
+#include "Renderer/Renderer.h"
 
-class RenderingContext 
-{
-public:
-	RenderingContext(RenderingContextType type);
-	~RenderingContext() = default;
+enum RenderingContextType { DirectX = 0, OpenGL = 1, Vulcan = 2 };
 
-	void Draw();
+class RenderingContext : public Renderer {
+ public:
+  RenderingContext(const RenderingContextType &type);
+  ~RenderingContext() = default;
 
-	int IncludeObject(const Object& object);
-	void ExcludeObject(const unsigned int objectId);
+  void Clear() const override;
+  void Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) const override;
 
-private: 
-	IRenderer renderer;
-	std::unordered_map<unsigned int, Object*> objects;
-}
+  int IncludeObject(const Object &object);
+  void ExcludeObject(const unsigned int objectId);
 
-#endif
+ private:
+  std::shared_ptr<Renderer> renderer;
+  std::unordered_map<unsigned int, Object> objects;
+};

@@ -9,18 +9,17 @@
 void OpenGlRenderer::Clear() const { glClear(GL_COLOR_BUFFER_BIT); }
 
 // This draw call needs to render all objects
-void OpenGlRenderer::Draw(const float *vertices, const uint32_t *indices, const uint32_t numberOfVertices,
-                          const uint32_t numberOfIndices, std::shared_ptr<Shader> &shader) const {
+void OpenGlRenderer::Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) const {
   VertexBufferLayout layout;
   layout.Push(GL_FLOAT, 2);
   layout.Push(GL_FLOAT, 2);
 
-  VertexBuffer vertexBuffer(&vertices[0], numberOfVertices * 3 * sizeof(float));
+  VertexBuffer vertexBuffer(mesh.vertices, mesh.numberOfVertices * 3 * sizeof(float));
 
   VertexArray vertexArray;
   vertexArray.AddBuffer(vertexBuffer, layout);
 
-  IndexBuffer indexBuffer(indices, numberOfIndices);
+  IndexBuffer indexBuffer(mesh.indices, mesh.numberOfIndices);
 
   vertexArray.Bind();
   indexBuffer.Bind();

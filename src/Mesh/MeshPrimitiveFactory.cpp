@@ -10,8 +10,8 @@ Mesh MeshPrimitiveFactory::LoadPrimitive(const MeshPrimitive::Type &type) {
 }
 
 void MeshPrimitiveFactory::CreatePrimitive(const MeshPrimitive::Type &type) {
-  const std::vector<float> newVertices;
-  const std::vector<uint32_t> newIndices;
+  std::vector<float> newVertices;
+  std::vector<uint32_t> newIndices;
 
   switch (type) {
     case MeshPrimitive::Square: {
@@ -29,24 +29,23 @@ void MeshPrimitiveFactory::CreatePrimitive(const MeshPrimitive::Type &type) {
   vertexBuffer.insert(vertexBuffer.end(), newVertices.begin(), newVertices.end());
   indexBuffer.insert(indexBuffer.end(), newIndices.begin(), newIndices.end());
 
-  Mesh mesh = {&vertexBuffer[startOfNewVertices], &indexBuffer[startOfNewIndices], newVertices.size(),
-               newIndices.size()};
+  Mesh mesh = {&vertexBuffer[startOfNewVertices], &indexBuffer[startOfNewIndices],
+               static_cast<uint32_t>(newVertices.size()), static_cast<uint32_t>(newIndices.size())};
 
-  meshMap.insert(std::pair(static_cast<uint32_t>(MeshPrimitive::Type::Triangle), Mesh(vertexBuffer, indexBuffer)));
+  meshMap.insert(std::pair(static_cast<uint32_t>(MeshPrimitive::Type::Triangle), mesh));
 }
 
-void MeshPrimitiveFactory::InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) {
+void MeshPrimitiveFactory::InitializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) const {
   vertices = {-0.5, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0, 0.0};
 
   indices = {0, 1, 2};
 }
 
-void MeshPrimitiveFactory::InitializeSquare() {
-  newVertices = {
-      //-0.5, -0.5, 0.0,
-      // 0.5, -0.5, 0.0,
-      // 0.5, 0.5, 0.0,
-      //-0.5, 0.5, 0.0
-      0.0f, 0.0f, 0.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 100.0f, 100.0f, 1.0f, 1.0f, 0.0f, 100.0f, 0.0f, 1.0f};
-  newIndices = {0, 1, 2, 2, 3, 0};
+void MeshPrimitiveFactory::InitializeSquare(std::vector<float> &vertices, std::vector<uint32_t> &indices) const {
+  vertices = {//-0.5, -0.5, 0.0,
+              // 0.5, -0.5, 0.0,
+              // 0.5, 0.5, 0.0,
+              //-0.5, 0.5, 0.0
+              0.0f, 0.0f, 0.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 100.0f, 100.0f, 1.0f, 1.0f, 0.0f, 100.0f, 0.0f, 1.0f};
+  indices = {0, 1, 2, 2, 3, 0};
 }

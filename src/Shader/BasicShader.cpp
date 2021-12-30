@@ -8,8 +8,6 @@
 #include <sstream>
 #include <string>
 
-using namespace Shaders;
-
 BasicShader::BasicShader(const std::string &filepath) {
   this->filepath = filepath;
   this->rendererId = 0;
@@ -95,9 +93,7 @@ ShaderProgramSource BasicShader::ParseShader() {
   return {ss[0].str(), ss[1].str()};
 }
 
-void BasicShader::SetUniform1i(const std::string &name, const int value) {
-  glUniform1i(GetUniformLocation(name), value);
-}
+void BasicShader::SetUniform1i(const std::string &name, int value) { glUniform1i(GetUniformLocation(name), value); }
 
 void BasicShader::SetUniform4f(const std::string &name, float *values) {
   glUniform4f(GetUniformLocation(name), values[0], values[1], values[2], values[3]);

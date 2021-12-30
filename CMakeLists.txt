@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.22)
+
 project (JollyEngine)
 
 # Linked Libraries
@@ -29,4 +31,7 @@ file(
 )
 
 add_executable(JollyEngine ${JOLLYENGINE_SRC})
+target_include_directories(JollyEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(JollyEngine ${LINK_LIBRARIES})
+
+file(COPY "resc" DESTINATION "${CMAKE_BINARY_DIR}")

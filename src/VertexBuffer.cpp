@@ -2,13 +2,7 @@
 
 #include <GL/glew.h>
 
-VertexBuffer::VertexBuffer(const std::vector<float> vertexBuffer, const unsigned int &size) {
-  glGenBuffers(1, &rendererID);
-  glBindBuffer(GL_ARRAY_BUFFER, rendererID);
-  glBufferData(GL_ARRAY_BUFFER, size, &vertexBuffer[0], GL_STATIC_DRAW);
-}
-
-VertexBuffer::VertexBuffer(const void *vertexBuffer, unsigned int size) {
+VertexBuffer::VertexBuffer(const void *vertexBuffer, const uint32_t size) {
   glGenBuffers(1, &rendererID);
   glBindBuffer(GL_ARRAY_BUFFER, rendererID);
   glBufferData(GL_ARRAY_BUFFER, size, vertexBuffer, GL_STATIC_DRAW);
