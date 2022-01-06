@@ -46,15 +46,13 @@ int Object::render() const {
 
   // ToDo: Implement Camera and get projectionMatrix and view Matrix
 
-  shader->Bind();
-
   glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
   glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
   glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * this->modelMatrix;
 
+  shader->Bind();
   shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
   shader->SetUniform1i("u_Texture", 0);
-
   shader->Unbind();
 
   Renderer::getInstance()->draw(meshId, shader);

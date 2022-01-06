@@ -44,15 +44,11 @@ int main(void) {
     glm::vec3 objectPosition(100, 100, 0);
     Object square(MeshPrimitiveType::Square, objectPosition);
 
-    glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-    glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
+    Object square2(MeshPrimitiveType::Square, objectPosition);
 
-    glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * square.getModelMatrix();
-
+    // ToDo: Create Texture Manager
     Texture texture("resc/textures/DwarfFortressMap.png");
     texture.Bind();
-
-    auto renderer = Renderer::getInstance();
 
     const char *glsl_version = "#version 130";
     IMGUI_CHECKVERSION();
@@ -69,16 +65,14 @@ int main(void) {
     // Our state
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+    auto renderer = Renderer::getInstance();
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
       /* Render here */
       renderer->clear();
 
       square.translate(objectPosition);
-      modelViewProjectionMatrix = projectionMatrix * viewMatrix * square.getModelMatrix();
-
-      // Move to globally accessable shader
-      auto shader = ShaderFactory::GetInstance()->GetShader(ShaderType::Basic);
 
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
@@ -96,12 +90,8 @@ int main(void) {
         ImGui::End();
       }
 
-      shader->Bind();
-      shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
-      shader->SetUniform1i("u_Texture", 0);
-      shader->Unbind();
-
       square.render();
+      square2.render();
 
       ImGui::Render();
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
