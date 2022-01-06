@@ -3,13 +3,23 @@
 #include <memory>
 #include <vector>
 
-#include "src/IndexBuffer.h"
-#include "src/Mesh/Mesh.h"
+#include "src/Renderer/OpenGlRenderer.h"
 #include "src/Shader/Shader.h"
-#include "src/VertexArray.h"
 
 class Renderer {
  public:
-  virtual void Clear() const = 0;
-  virtual void Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) const = 0;
+  ~Renderer() = default;
+
+  static Renderer *getInstance() {
+    static Renderer rendererInstance;
+    return &rendererInstance;
+  }
+
+  void clear();
+  void draw(const std::string &meshId, std::shared_ptr<Shader> &shader);
+
+ private:
+  Renderer() = default;
+
+  OpenGlRenderer renderer;
 };

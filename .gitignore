@@ -8,3 +8,5 @@ libindexbuffer.a
 src/tags
 *.swp
 build
+tags
+aliai.rc

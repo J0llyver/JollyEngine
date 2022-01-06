@@ -6,10 +6,10 @@
 #include "src/VertexArray.h"
 #include "src/VertexBuffer.h"
 
-void OpenGlRenderer::Clear() const { glClear(GL_COLOR_BUFFER_BIT); }
+void OpenGlRenderer::clear() const { glClear(GL_COLOR_BUFFER_BIT); }
 
 // This draw call needs to render all objects
-void OpenGlRenderer::Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) const {
+void OpenGlRenderer::draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) const {
   VertexBufferLayout layout;
   layout.Push(GL_FLOAT, 2);
   layout.Push(GL_FLOAT, 2);
@@ -18,8 +18,6 @@ void OpenGlRenderer::Draw(const Mesh &mesh, std::shared_ptr<Shader> &shader) con
 
   VertexArray vertexArray;
   vertexArray.AddBuffer(vertexBuffer, layout);
-
-  // std::cout << mesh.numberOfIndices << std::endl;
 
   IndexBuffer indexBuffer(mesh.indices, mesh.numberOfIndices);
 

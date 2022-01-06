@@ -4,25 +4,28 @@
 
 #include "src/Entity.h"
 #include "src/Mesh/Mesh.h"
-#include "src/Renderer/Renderer.h"
 #include "src/vendor/glm/gtc/matrix_transform.hpp"
 
 // ToDo: Add pipline for rendering behaviour
-// ToDo: Add ppipline fo game behaviour
+// ToDo: Add pipline fo game behaviour
 class Object : Entity {
  public:
-  Object(const Mesh &mesh);
+  Object(const std::string &meshId, const glm::vec3 &position);
+  Object(const MeshPrimitiveType &type, const glm::vec3 &position);
   ~Object() = default;
 
-  inline void Scale(const double x);
-  void Scale(double xRatio, double yRatio, double zRatio);
+  inline void scale(const double x);
+  void scale(double xRatio, double yRatio, double zRatio);
+  void translate(const glm::vec3 &newPosition);
 
-  int SetTexture(const std::string &textureLocation);
+  int setTexture(const std::string &textureLocation);
 
-  int Render(const Renderer &renderer) const;
+  const glm::mat4 &getModelMatrix() const;
+
+  int render() const;
 
  private:
-  const Mesh *mesh;
+  std::string meshId;
   glm::mat4 modelMatrix;
 
   std::string textureLocation;

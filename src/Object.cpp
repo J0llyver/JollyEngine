@@ -1,18 +1,47 @@
 #include "Object.h"
 
 #include <fstream>
-#include <iostream>
+#include <stdexcept>
 
 #include "Entity.h"
 #include "glm/glm.hpp"
+#include "src/Mesh/MeshFactory.h"
+#include "src/Renderer/Renderer.h"
 #include "src/ShaderFactory.h"
 
-Object::Object(const Mesh &mesh) {
-  this->mesh = &mesh;
-  this->modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
+Object::Object(const std::string &meshId, const glm::vec3 &position) {
+  this->meshId = meshId;
+  modelMatrix = glm::translate(glm::mat4(1.0f), position);
 }
 
-int Object::Render(const Renderer &renderer) const {
+Object::Object(const MeshPrimitiveType &type, const glm::vec3 &position) {
+  this->meshId = MeshFactory::getInstance()->loadPrimitive(type);
+  modelMatrix = glm::translate(glm::mat4(1.0f), position);
+}
+
+void Object::scale(double ratio) { scale(ratio, ratio, ratio); }
+
+void Object::scale(double xRatio, double yRatio, double zRatio) {
+  modelMatrix = glm::scale(modelMatrix, glm::vec3(xRatio, yRatio, zRatio));
+}
+
+void Object::translate(const glm::vec3 &newPosition) { modelMatrix = glm::translate(glm::mat4(1.0f), newPosition); }
+
+int Object::setTexture(const std::string &textureLocation) {
+  std::ifstream textureFile(textureLocation.c_str());
+  if (!textureFile.good()) {
+    std::runtime_error("File does not exist: " + textureLocation);
+    return -1;
+  }
+
+  this->textureLocation = textureLocation;
+
+  return 0;
+}
+
+const glm::mat4 &Object::getModelMatrix() const { return modelMatrix; }
+
+int Object::render() const {
   auto shader = ShaderFactory::GetInstance()->GetShader(ShaderType::Basic);
 
   // ToDo: Implement Camera and get projectionMatrix and view Matrix
@@ -25,25 +54,10 @@ int Object::Render(const Renderer &renderer) const {
 
   shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
   shader->SetUniform1i("u_Texture", 0);
+
   shader->Unbind();
 
-  return 0;
-}
-
-int Object::SetTexture(const std::string &textureLocation) {
-  std::ifstream textureFile(textureLocation.c_str());
-  if (!textureFile.good()) {
-    std::cout << "File does not exist: " << textureLocation << std::endl;
-    return -1;
-  }
-
-  this->textureLocation = textureLocation;
+  Renderer::getInstance()->draw(meshId, shader);
 
   return 0;
-}
-
-void Object::Scale(double ratio) { Scale(ratio, ratio, ratio); }
-
-void Object::Scale(double xRatio, double yRatio, double zRatio) {
-  modelMatrix = glm::scale(modelMatrix, glm::vec3(xRatio, yRatio, zRatio));
 }

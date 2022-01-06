@@ -5,16 +5,16 @@
 #include <iostream>
 #include <sstream>
 
-#include "Mesh/MeshPrimitiveFactory.h"
-#include "RenderingContext.h"
-#include "ShaderFactory.h"
-#include "Texture.h"
-#include "VertexBuffer.h"
 #include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "src/Mesh/MeshFactory.h"
+#include "src/Object.h"
+#include "src/Renderer/Renderer.h"
+#include "src/ShaderFactory.h"
+#include "src/Texture.h"
+#include "src/VertexBuffer.h"
 
 int main(void) {
   GLFWwindow *window;
@@ -40,24 +40,19 @@ int main(void) {
     std::cout << "Failed to initialize glew!" << std::endl;
   }
 
-  std::cout << glGetString(GL_VERSION) << std::endl;
-
   {
-    auto meshPrimitiveFactory = new MeshPrimitiveFactory();
-
-    Mesh squareMesh = meshPrimitiveFactory->LoadPrimitive(MeshPrimitive::Type::Square);
-
     glm::vec3 objectPosition(100, 100, 0);
+    Object square(MeshPrimitiveType::Square, objectPosition);
+
     glm::mat4 projectionMatrix = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
     glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), objectPosition);
 
-    glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
+    glm::mat4 modelViewProjectionMatrix = projectionMatrix * viewMatrix * square.getModelMatrix();
 
     Texture texture("resc/textures/DwarfFortressMap.png");
     texture.Bind();
 
-    auto renderer = std::make_shared<RenderingContext>(RenderingContextType::OpenGL);
+    auto renderer = Renderer::getInstance();
 
     const char *glsl_version = "#version 130";
     IMGUI_CHECKVERSION();
@@ -77,18 +72,13 @@ int main(void) {
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
       /* Render here */
-      renderer->Clear();
+      renderer->clear();
 
-      modelMatrix = glm::translate(glm::mat4(1.0f), objectPosition);
-      modelViewProjectionMatrix = projectionMatrix * viewMatrix * modelMatrix;
+      square.translate(objectPosition);
+      modelViewProjectionMatrix = projectionMatrix * viewMatrix * square.getModelMatrix();
 
       // Move to globally accessable shader
       auto shader = ShaderFactory::GetInstance()->GetShader(ShaderType::Basic);
-
-      shader->Bind();
-      shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
-      shader->SetUniform1i("u_Texture", 0);
-      shader->Unbind();
 
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
@@ -106,7 +96,12 @@ int main(void) {
         ImGui::End();
       }
 
-      renderer->Draw(squareMesh, shader);
+      shader->Bind();
+      shader->SetUniformMat4f("u_MVP", modelViewProjectionMatrix);
+      shader->SetUniform1i("u_Texture", 0);
+      shader->Unbind();
+
+      square.render();
 
       ImGui::Render();
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -117,8 +112,6 @@ int main(void) {
       /* Poll for and process events */
       glfwPollEvents();
     }
-
-    delete meshPrimitiveFactory;
 
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
