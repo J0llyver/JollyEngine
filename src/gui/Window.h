@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <unordered_set>
 
 #include "Component.h"
 #include "glm/glm.hpp"
@@ -17,6 +17,7 @@ class Window {
   void addFrameData(std::string text);
 
   void render();
+  void clear();
 
  private:
   std::string name;
@@ -24,7 +25,7 @@ class Window {
   uint32_t width;
   uint32_t height;
 
-  std::unordered_map<uint32_t, Component *> components;
+  std::unordered_set<uint32_t> componentIds;
 };
 
 }  // namespace gui

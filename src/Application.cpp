@@ -90,16 +90,10 @@ int main(void) {
       const int imguiWindowWidth = 400;
       const int imguiWindowHeight = 250;
 
-      ImGui::SetNextWindowPos(ImVec2(windowWidth - imguiWindowWidth, 0));
-      ImGui::SetNextWindowSize(ImVec2(imguiWindowWidth, imguiWindowHeight));
-      ImGui::Begin("Hello, world!");
-
       xPosition.render();
       yPosition.render();
       colorPicker.render();
       frameData.render();
-
-      ImGui::End();
     }
 
     square.translate(objectPosition);
