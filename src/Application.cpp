@@ -5,16 +5,19 @@
 #include <iostream>
 #include <sstream>
 
+#include "Mesh/MeshFactory.h"
+#include "Object.h"
+#include "Renderer/Renderer.h"
+#include "ShaderFactory.h"
+#include "Texture.h"
+#include "VertexBuffer.h"
 #include "glm/glm.hpp"
+#include "gui/ColorPicker.h"
+#include "gui/FloatSlider.h"
+#include "gui/FrameData.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
-#include "src/Mesh/MeshFactory.h"
-#include "src/Object.h"
-#include "src/Renderer/Renderer.h"
-#include "src/ShaderFactory.h"
-#include "src/Texture.h"
-#include "src/VertexBuffer.h"
 
 int main(void) {
   GLFWwindow *window;
@@ -40,74 +43,84 @@ int main(void) {
     std::cout << "Failed to initialize glew!" << std::endl;
   }
 
-  {
-    glm::vec3 objectPosition(100, 100, 0);
-    Object square(MeshPrimitiveType::Square, objectPosition);
+  glm::vec3 objectPosition(100, 100, 0);
+  Object square(MeshPrimitiveType::Square, objectPosition);
 
-    Object square2(MeshPrimitiveType::Square, objectPosition);
+  Object square2(MeshPrimitiveType::Square, objectPosition);
 
-    // ToDo: Create Texture Manager
-    Texture texture("resc/textures/DwarfFortressMap.png");
-    texture.Bind();
+  // ToDo: Create Texture Manager
+  Texture texture("resc/textures/DwarfFortressMap.png");
+  texture.Bind();
 
-    const char *glsl_version = "#version 130";
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void)io;
+  const char *glsl_version = "#version 130";
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO &io = ImGui::GetIO();
+  (void)io;
 
-    // Setup Platform/Renderer bindings
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
+  // Setup Platform/Renderer bindings
+  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplOpenGL3_Init(glsl_version);
 
-    ImGui::StyleColorsDark();
+  ImGui::StyleColorsDark();
 
-    // Our state
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+  // Our state
+  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    auto renderer = Renderer::getInstance();
+  auto renderer = Renderer::getInstance();
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window)) {
-      /* Render here */
-      renderer->clear();
+  int windowWidth, windowHeight;
+  glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
-      square.translate(objectPosition);
+  gui::FloatSlider xPosition("Position X", 0.0f, 540.0f, &objectPosition.x);
+  gui::FloatSlider yPosition("Position Y", 0.0f, 540.0f, &objectPosition.y);
+  gui::ColorPicker colorPicker("clear color", (float *)&clear_color);
+  gui::FrameData frameData{};
 
-      ImGui_ImplOpenGL3_NewFrame();
-      ImGui_ImplGlfw_NewFrame();
-      ImGui::NewFrame();
+  /* Loop until the user closes the window */
+  while (!glfwWindowShouldClose(window)) {
+    /* Render here */
+    renderer->clear();
 
-      {
-        ImGui::Begin("Hello, world!");
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
 
-        ImGui::SliderFloat("Position X", &objectPosition.x, 0.0f, 960.0f);
-        ImGui::SliderFloat("Position Y", &objectPosition.y, 0.0f, 540.0f);
-        ImGui::ColorEdit3("clear color", (float *)&clear_color);
+    {
+      const int imguiWindowWidth = 400;
+      const int imguiWindowHeight = 250;
 
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
-        ImGui::End();
-      }
+      ImGui::SetNextWindowPos(ImVec2(windowWidth - imguiWindowWidth, 0));
+      ImGui::SetNextWindowSize(ImVec2(imguiWindowWidth, imguiWindowHeight));
+      ImGui::Begin("Hello, world!");
 
-      square.render();
-      square2.render();
+      xPosition.render();
+      yPosition.render();
+      colorPicker.render();
+      frameData.render();
 
-      ImGui::Render();
-      ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-      /* Swap front and back buffers */
-      glfwSwapBuffers(window);
-
-      /* Poll for and process events */
-      glfwPollEvents();
+      ImGui::End();
     }
 
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    square.translate(objectPosition);
+    square.render();
+
+    square2.render();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window);
+
+    /* Poll for and process events */
+    glfwPollEvents();
   }
+
+  // Cleanup
+  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplGlfw_Shutdown();
+  ImGui::DestroyContext();
 
   glfwTerminate();
   return 0;
