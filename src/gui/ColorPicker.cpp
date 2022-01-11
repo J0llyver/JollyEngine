@@ -14,3 +14,5 @@ void gui::ColorPicker::render() {
     ImGui::Text("Invalid variable for color picker '%s'!", label.c_str());
   }
 }
+
+gui::ComponentType gui::ColorPicker::getType() { return ComponentType::ColorPicker; }

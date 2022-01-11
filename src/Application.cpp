@@ -12,9 +12,7 @@
 #include "Texture.h"
 #include "VertexBuffer.h"
 #include "glm/glm.hpp"
-#include "gui/ColorPicker.h"
-#include "gui/FloatSlider.h"
-#include "gui/FrameData.h"
+#include "gui/Window.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
@@ -72,10 +70,11 @@ int main(void) {
   int windowWidth, windowHeight;
   glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
-  gui::FloatSlider xPosition("Position X", 0.0f, 540.0f, &objectPosition.x);
-  gui::FloatSlider yPosition("Position Y", 0.0f, 540.0f, &objectPosition.y);
-  gui::ColorPicker colorPicker("clear color", (float *)&clear_color);
-  gui::FrameData frameData{};
+  gui::Window imguiWindow("Patrick", 400, 250);
+  imguiWindow.addFloatSlider("Position X", 0.0f, 540.0f, &objectPosition.x);
+  imguiWindow.addFloatSlider("Position Y", 0.0f, 540.0f, &objectPosition.y);
+  imguiWindow.addColorPicker("clear color", (float *)&clear_color);
+  imguiWindow.addFrameData();
 
   /* Loop until the user closes the window */
   while (!glfwWindowShouldClose(window)) {
@@ -86,15 +85,7 @@ int main(void) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    {
-      const int imguiWindowWidth = 400;
-      const int imguiWindowHeight = 250;
-
-      xPosition.render();
-      yPosition.render();
-      colorPicker.render();
-      frameData.render();
-    }
+    imguiWindow.render(windowWidth);
 
     square.translate(objectPosition);
     square.render();

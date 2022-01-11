@@ -11,6 +11,7 @@ class ColorPicker : public Component {
   ~ColorPicker() = default;
 
   virtual void render();
+  virtual ComponentType getType();
 
  private:
   std::string label;

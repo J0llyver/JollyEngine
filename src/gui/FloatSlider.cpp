@@ -17,3 +17,5 @@ void gui::FloatSlider::render() {
     ImGui::Text("Invalid variable for slider '%s'!", label.c_str());
   }
 }
+
+gui::ComponentType gui::FloatSlider::getType() { return ComponentType::FloatSlider; }

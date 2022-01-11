@@ -11,6 +11,7 @@ class FloatSlider : public Component {
   ~FloatSlider() = default;
 
   virtual void render();
+  virtual ComponentType getType();
 
  private:
   std::string label;

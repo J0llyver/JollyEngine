@@ -9,5 +9,6 @@ class FrameData : public Component {
   ~FrameData() = default;
 
   virtual void render();
+  virtual ComponentType getType();
 };
 }  // namespace gui

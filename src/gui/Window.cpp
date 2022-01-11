@@ -1,34 +1,42 @@
 #include "Window.h"
 
-#include "ComponentManager.h"
-
 #include <GLFW/glfw3.h>
 
-void gui::Window::addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue, float *variable) {
-  componentIds.insert(gui::ComponentManager::getInstance()->createFloatSlider(label, minimumValue, maximumValue, variable));
+#include "ColorPicker.h"
+#include "FloatSlider.h"
+#include "FrameData.h"
+#include "imgui/imgui.h"
+
+gui::Window::Window(const std::string &name, const uint32_t width, const uint32_t height) {
+  this->name = name;
+  this->width = width;
+  this->height = height;
 }
 
-void gui::Window::addColorEditor(const std::string &label, float *color) { 
-  componentIds.insert(gui::ComponentManager::getInstance()->createColorPicker(label, color));
+void gui::Window::addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
+                                 float *variable) {
+  components.insert(std::make_pair(
+      nextComponentId, static_cast<Component *>(new FloatSlider(label, minimumValue, maximumValue, variable))));
+  ++nextComponentId;
+}
+
+void gui::Window::addColorPicker(const std::string &label, float *color) {
+  components.insert(std::make_pair(nextComponentId, static_cast<Component *>(new ColorPicker(label, color))));
+  ++nextComponentId;
 }
 
 void gui::Window::addFrameData() {
-  componentIds.insert(gui::ComponentManager::getInstance()->getFrameData());
+  components.insert(std::make_pair(nextComponentId, static_cast<Component *>(new FrameData())));
+  ++nextComponentId;
 }
 
-void gui::Window::render() {
-  auto componentManager = gui::ComponentManager::getInstance();
-
-  int windowWidth, windowHeight;
-  glfwGetWindowSize(window, &windowWidth, &windowHeight);
-
-  ImGui::SetNextWindowPos(ImVec2(windowWidth - width, 0));
+void gui::Window::render(const int applicationWindowWidth) {
+  ImGui::SetNextWindowPos(ImVec2(applicationWindowWidth - width, 0));
   ImGui::SetNextWindowSize(ImVec2(width, height));
 
-  ImGui::Begin(name);
-  for (const auto id : componentIds) {
-    componentManager->getComponent(id)->render();
+  ImGui::Begin(name.c_str());
+  for (const auto component : components) {
+    component.second->render();
   }
   ImGui::End();
 }
-
