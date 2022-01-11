@@ -5,7 +5,6 @@
 #include <unordered_map>
 
 #include "Component.h"
-#include "glm/glm.hpp"
 
 namespace gui {
 

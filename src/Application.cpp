@@ -1,14 +1,11 @@
 #include "JollyGame.h"
-#include "Mesh/MeshFactory.h"
 #include "Object.h"
 #include "Renderer/Renderer.h"
-#include "ShaderFactory.h"
 #include "Texture.h"
-#include "VertexBuffer.h"
 #include "glm/glm.hpp"
 #include "gui/Window.h"
 
-int main(void) {
+int main() {
   auto game = JollyGame::getInstance();
 
   // Our state

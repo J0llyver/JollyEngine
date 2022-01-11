@@ -1,7 +1,5 @@
 #include "Window.h"
 
-#include <GLFW/glfw3.h>
-
 #include "ColorPicker.h"
 #include "FloatSlider.h"
 #include "FrameData.h"
