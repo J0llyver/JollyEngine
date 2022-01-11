@@ -12,17 +12,13 @@ const std::string MeshFactory::loadPrimitive(const MeshPrimitiveType &type) {
   switch (type) {
     case MeshPrimitiveType::Square: {
       meshId = "square";
-      initializeMesh = [&](){ 
-        initializeSquare(newVertices, newIndices);
-      };
+      initializeMesh = [&]() { initializeSquare(newVertices, newIndices); };
       break;
     }
     case MeshPrimitiveType::Triangle:
     default: {
       meshId = "triangle";
-      initializeMesh = [&]() { 
-        initializeTriangle(newVertices, newIndices);
-      };
+      initializeMesh = [&]() { initializeTriangle(newVertices, newIndices); };
     }
   }
 
@@ -44,9 +40,7 @@ const std::string MeshFactory::loadPrimitive(const MeshPrimitiveType &type) {
   return meshId;
 }
 
-const Mesh& MeshFactory::getMesh(const std::string &meshId) {
-  return meshMap[meshId];
-}
+const Mesh &MeshFactory::getMesh(const std::string &meshId) { return meshMap[meshId]; }
 
 void MeshFactory::initializeTriangle(std::vector<float> &vertices, std::vector<uint32_t> &indices) const {
   vertices = {-0.5, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0, 0.0};

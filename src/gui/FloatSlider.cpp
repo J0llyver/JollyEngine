@@ -3,7 +3,7 @@
 #include "imgui/imgui.h"
 
 gui::FloatSlider::FloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
-                              float *variable) {
+                              float* variable) {
   this->label = label;
   this->minimumValue = minimumValue;
   this->maximumValue = maximumValue;

@@ -7,7 +7,7 @@
 namespace gui {
 class ColorPicker : public Component {
  public:
-  ColorPicker(const std::string &label, float *colorVariable);
+  ColorPicker(const std::string &label, float* colorVariable);
   ~ColorPicker() = default;
 
   virtual void render();
@@ -15,6 +15,6 @@ class ColorPicker : public Component {
 
  private:
   std::string label;
-  float *colorVariable;
+  float* colorVariable;
 };
 }  // namespace gui

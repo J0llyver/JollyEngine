@@ -1,50 +1,40 @@
 #include "Texture.h"
 
-#include "../vendor/stb_image/stb_image.h"
-
 #include <GL/glew.h>
 
-Texture::Texture(const std::string& path){
-	this->filePath = path;
-	this->localBuffer = nullptr;
-	this->width = 0;
-	this->height = 0;
-	this->bpp = 0;
+#include "../vendor/stb_image/stb_image.h"
 
-	stbi_set_flip_vertically_on_load(1); // OpenGL expects texture pixels to start at the bottom left
-	localBuffer = stbi_load(
-		path.c_str(),
-		&width,
-		&height,
-		&bpp,
-		4
-	);
+Texture::Texture(const std::string &path) {
+  this->filePath = path;
+  this->localBuffer = nullptr;
+  this->width = 0;
+  this->height = 0;
+  this->bpp = 0;
 
-	glGenTextures(1, &rendererId);
-	glBindTexture(GL_TEXTURE_2D, rendererId);
+  stbi_set_flip_vertically_on_load(1);  // OpenGL expects texture pixels to start at the bottom left
+  localBuffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glGenTextures(1, &rendererId);
+  glBindTexture(GL_TEXTURE_2D, rendererId);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
-	glBindTexture(GL_TEXTURE_2D, 0);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	if(localBuffer){
-		stbi_image_free(localBuffer);
-	}
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  if (localBuffer) {
+    stbi_image_free(localBuffer);
+  }
 }
 
-Texture::~Texture(){
-	glDeleteTextures(1, &rendererId);
-}
+Texture::~Texture() { glDeleteTextures(1, &rendererId); }
 
 void Texture::Bind(unsigned int slot) const {
-	glActiveTexture(GL_TEXTURE0 + slot);
-	glBindTexture(GL_TEXTURE_2D, rendererId);	
+  glActiveTexture(GL_TEXTURE0 + slot);
+  glBindTexture(GL_TEXTURE_2D, rendererId);
 }
 
-void Texture::Unbind() const {
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
+void Texture::Unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }

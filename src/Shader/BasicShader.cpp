@@ -30,7 +30,7 @@ void BasicShader::Unbind() const { glUseProgram(0); }
 
 unsigned int BasicShader::CompileShader(unsigned int type, const std::string &source) {
   unsigned int id = glCreateShader(type);
-  const char *src = source.c_str();
+  const char* src = source.c_str();
   glShaderSource(id, 1, &src, nullptr);
   glCompileShader(id);
 
@@ -41,7 +41,7 @@ unsigned int BasicShader::CompileShader(unsigned int type, const std::string &so
     int length;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 
-    char *message = (char *)alloca(length * sizeof(char));
+    char* message = (char*)alloca(length * sizeof(char));
     glGetShaderInfoLog(id, length, &length, message);
     std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << std::endl;
     std::cout << message << std::endl;
@@ -95,7 +95,7 @@ ShaderProgramSource BasicShader::ParseShader() {
 
 void BasicShader::SetUniform1i(const std::string &name, int value) { glUniform1i(GetUniformLocation(name), value); }
 
-void BasicShader::SetUniform4f(const std::string &name, float *values) {
+void BasicShader::SetUniform4f(const std::string &name, float* values) {
   glUniform4f(GetUniformLocation(name), values[0], values[1], values[2], values[3]);
 }
 

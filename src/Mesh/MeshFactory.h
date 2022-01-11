@@ -1,10 +1,10 @@
 #pragma once
 
-#include "src/Mesh/Mesh.h"
-
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include "src/Mesh/Mesh.h"
 
 class MeshFactory {
  public:
@@ -13,13 +13,13 @@ class MeshFactory {
   MeshFactory(MeshFactory const &) = delete;
   void operator=(MeshFactory const &) = delete;
 
-  static MeshFactory* getInstance(){
+  static MeshFactory* getInstance() {
     static MeshFactory meshFactoryInstance;
     return &meshFactoryInstance;
   }
 
   const std::string loadPrimitive(const MeshPrimitiveType &type);
-  const Mesh& getMesh(const std::string &meshId);
+  const Mesh &getMesh(const std::string &meshId);
 
  private:
   MeshFactory() = default;

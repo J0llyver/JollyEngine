@@ -7,7 +7,7 @@
 namespace gui {
 class FloatSlider : public Component {
  public:
-  FloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue, float *variable);
+  FloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue, float* variable);
   ~FloatSlider() = default;
 
   virtual void render();
@@ -17,6 +17,6 @@ class FloatSlider : public Component {
   std::string label;
   float minimumValue;
   float maximumValue;
-  float *variable;
+  float* variable;
 };
 }  // namespace gui

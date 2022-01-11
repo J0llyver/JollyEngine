@@ -5,8 +5,8 @@
 
 class IndexBuffer {
  public:
-  IndexBuffer(const std::vector<uint32_t> *indexBuffer, uint32_t size);
-  IndexBuffer(const uint32_t *indexBuffer, uint32_t size);
+  IndexBuffer(const std::vector<uint32_t>* indexBuffer, uint32_t size);
+  IndexBuffer(const uint32_t* indexBuffer, uint32_t size);
   ~IndexBuffer();
 
   void Bind() const;

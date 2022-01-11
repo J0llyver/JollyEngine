@@ -9,15 +9,12 @@
 #include "gui/Window.h"
 
 int main(void) {
-  JollyGame game;
+  auto game = JollyGame::getInstance();
 
   // Our state
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
   auto renderer = Renderer::getInstance();
-
-  int windowWidth, windowHeight;
-  game.getGameWindowSize(windowWidth, windowHeight);
 
   glm::vec3 objectPosition(100, 100, 0);
   Object square(MeshPrimitiveType::Square, objectPosition);
@@ -31,11 +28,11 @@ int main(void) {
   gui::Window imguiWindow("Patrick", 400, 250);
   imguiWindow.addFloatSlider("Position X", 0.0f, 540.0f, &objectPosition.x);
   imguiWindow.addFloatSlider("Position Y", 0.0f, 540.0f, &objectPosition.y);
-  imguiWindow.addColorPicker("clear color", (float *)&clear_color);
+  imguiWindow.addColorPicker("clear color", (float*)&clear_color);
   imguiWindow.addFrameData();
 
   /* Loop until the user closes the window */
-  while (!game.windowShouldClose()) {
+  while (!game->windowShouldClose()) {
     /* Render here */
     renderer->clear();
 
@@ -43,18 +40,17 @@ int main(void) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    imguiWindow.render(windowWidth);
-
-    square.translate(objectPosition);
-    square.render();
-
-    square2.render();
+    imguiWindow.render();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    game.swapBuffers();
-    game.pollEvents();
+    square.translate(objectPosition);
+    square.render();
+    square2.render();
+
+    game->swapBuffers();
+    game->pollEvents();
   }
 
   return 0;

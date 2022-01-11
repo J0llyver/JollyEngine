@@ -1,4 +1,5 @@
 BasedOnStyle: Google
 ColumnLimit: 120
 DerivePointerAlignment: false
-PointerAlignment: Right
+PointerAlignment: Left
+ReferenceAlignment: Right

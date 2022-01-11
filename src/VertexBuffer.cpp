@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-VertexBuffer::VertexBuffer(const void *vertexBuffer, const uint32_t size) {
+VertexBuffer::VertexBuffer(const void* vertexBuffer, const uint32_t size) {
   this->numberOfVertices = size;
   glGenBuffers(1, &rendererID);
   glBindBuffer(GL_ARRAY_BUFFER, rendererID);

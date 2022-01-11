@@ -12,7 +12,7 @@ class ShaderFactory {
  public:
   ~ShaderFactory() = default;
 
-  ShaderFactory(ShaderFactory *other) = delete;
+  ShaderFactory(ShaderFactory* other) = delete;
   void operator=(const ShaderFactory &) = delete;
 
   static std::shared_ptr<ShaderFactory> GetInstance();

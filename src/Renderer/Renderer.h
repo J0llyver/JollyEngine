@@ -10,10 +10,7 @@ class Renderer {
  public:
   ~Renderer() = default;
 
-  static Renderer *getInstance() {
-    static Renderer rendererInstance;
-    return &rendererInstance;
-  }
+  static Renderer* getInstance();
 
   void clear();
   void draw(const std::string &meshId, std::shared_ptr<Shader> &shader);

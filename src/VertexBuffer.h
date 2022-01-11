@@ -4,7 +4,7 @@
 
 class VertexBuffer {
  public:
-  VertexBuffer(const void *vertexBuffer, const uint32_t size);
+  VertexBuffer(const void* vertexBuffer, const uint32_t size);
   ~VertexBuffer();
 
   inline uint32_t size() const { return numberOfVertices; }

@@ -2,7 +2,7 @@
 
 #include "imgui/imgui.h"
 
-gui::ColorPicker::ColorPicker(const std::string &label, float *colorVariable) {
+gui::ColorPicker::ColorPicker(const std::string &label, float* colorVariable) {
   this->label = label;
   this->colorVariable = colorVariable;
 }
