@@ -1,7 +1,5 @@
 #include "OpenGlRenderer.h"
 
-#include <iostream>
-
 #include "src/IndexBuffer.h"
 #include "src/VertexArray.h"
 #include "src/VertexBuffer.h"

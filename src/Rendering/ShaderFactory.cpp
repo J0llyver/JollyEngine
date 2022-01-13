@@ -1,7 +1,6 @@
 #include "ShaderFactory.h"
 
 #include <filesystem>
-#include <iostream>
 
 #include "Shader/BasicShader.h"
 

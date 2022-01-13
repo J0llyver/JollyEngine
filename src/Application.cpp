@@ -1,9 +1,11 @@
+// This needs to be included first because glew needs to be included before glm
 #include "JollyGame.h"
+
+#include "glm/glm.hpp"
+#include "GuiManager.h"
 #include "Object.h"
 #include "Renderer.h"
 #include "Texture.h"
-#include "glm/glm.hpp"
-#include "gui/Window.h"
 
 int main() {
   auto game = JollyGame::getInstance();
@@ -22,25 +24,20 @@ int main() {
   Texture texture("resc/textures/DwarfFortressMap.png");
   texture.Bind();
 
-  gui::Window imguiWindow("Patrick", 400, 250);
-  imguiWindow.addFloatSlider("Position X", 0.0f, 540.0f, &objectPosition.x);
-  imguiWindow.addFloatSlider("Position Y", 0.0f, 540.0f, &objectPosition.y);
-  imguiWindow.addColorPicker("clear color", (float*)&clear_color);
-  imguiWindow.addFrameData();
+  auto guiManager = GuiManager::getInstance();
+
+  auto imguiWindow = guiManager->createWindow("Patrick", 400, 250);
+  imguiWindow->addFloatSlider("Position X", 0.0f, 540.0f, &objectPosition.x);
+  imguiWindow->addFloatSlider("Position Y", 0.0f, 540.0f, &objectPosition.y);
+  imguiWindow->addColorPicker("clear color", (float*)&clear_color);
+  imguiWindow->addFrameData();
 
   /* Loop until the user closes the window */
   while (!game->windowShouldClose()) {
     /* Render here */
     renderer->clear();
 
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    imguiWindow.render();
-
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    guiManager->renderGui();
 
     square.translate(objectPosition);
     square.render();

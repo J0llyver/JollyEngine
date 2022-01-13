@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 
 BasicShader::BasicShader(const std::string &filepath) {
@@ -22,7 +23,7 @@ void BasicShader::Bind() const {
   if (rendererId != 0) {
     glUseProgram(rendererId);
   } else {
-    std::cout << "rendererId in Shader is 0!" << std::endl;
+    std::runtime_error("rendererId in Shader is 0!" );
   }
 }
 
@@ -43,7 +44,8 @@ unsigned int BasicShader::CompileShader(unsigned int type, const std::string &so
 
     char* message = (char*)alloca(length * sizeof(char));
     glGetShaderInfoLog(id, length, &length, message);
-    std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << std::endl;
+
+    std::runtime_error("Failed to compile %s shader", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
     std::cout << message << std::endl;
 
     glDeleteShader(id);
