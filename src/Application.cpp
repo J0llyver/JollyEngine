@@ -1,6 +1,6 @@
 #include "JollyGame.h"
 #include "Object.h"
-#include "Renderer/Renderer.h"
+#include "Renderer.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
 #include "gui/Window.h"

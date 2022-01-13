@@ -3,8 +3,8 @@
 #include <memory>
 #include <vector>
 
-#include "src/Renderer/OpenGlRenderer.h"
-#include "src/Shader/Shader.h"
+#include "Rendering/OpenGlRenderer.h"
+#include "Rendering/Shader/Shader.h"
 
 class Renderer {
  public:

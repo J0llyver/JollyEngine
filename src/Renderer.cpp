@@ -1,6 +1,6 @@
-#include "src/Renderer/Renderer.h"
+#include "Renderer.h"
 
-#include "src/Mesh/MeshFactory.h"
+#include "Mesh/MeshFactory.h"
 
 Renderer* Renderer::getInstance() {
   static Renderer rendererInstance;

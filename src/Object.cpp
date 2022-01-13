@@ -5,9 +5,9 @@
 
 #include "Entity.h"
 #include "glm/glm.hpp"
-#include "src/Mesh/MeshFactory.h"
-#include "src/Renderer/Renderer.h"
-#include "src/ShaderFactory.h"
+#include "Mesh/MeshFactory.h"
+#include "Renderer.h"
+#include "Rendering/ShaderFactory.h"
 
 Object::Object(const std::string &meshId, const glm::vec3 &position) {
   this->meshId = meshId;
