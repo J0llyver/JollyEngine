@@ -1,49 +1,47 @@
 #include "Window.h"
 
-#include "ColorPicker.h"
-#include "FloatSlider.h"
-#include "FrameData.h"
-#include "Log.h"
 #include "imgui/imgui.h"
 #include "src/JollyGame.h"
 
-gui::Window::Window(const std::string &name, const uint32_t width, const uint32_t height) {
+using namespace gui;
+
+Window::Window(const std::string &name, const uint32_t width, const uint32_t height) {
   this->name = name;
   this->width = width;
   this->height = height;
 }
 
-uint32_t gui::Window::addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
-                                     float* variable) {
-  components.insert(std::make_pair(
-      nextComponentId, static_cast<Component*>(new FloatSlider(label, minimumValue, maximumValue, variable))));
+std::shared_ptr<FloatSlider> Window::addFloatSlider(const std::string &label, const float &minimumValue,
+                                                    const float &maximumValue, float* variable) {
+  components.insert(
+      std::make_pair(nextComponentId, std::make_shared<FloatSlider>(label, minimumValue, maximumValue, variable)));
   ++nextComponentId;
 
-  return nextComponentId - 1;
+  return static_pointer_cast<FloatSlider>(components[nextComponentId - 1]);
 }
 
-uint32_t gui::Window::addColorPicker(const std::string &label, float* color) {
-  components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new ColorPicker(label, color))));
+std::shared_ptr<ColorPicker> Window::addColorPicker(const std::string &label, float* color) {
+  components.insert(std::make_pair(nextComponentId, std::make_shared<ColorPicker>(label, color)));
   ++nextComponentId;
 
-  return nextComponentId - 1;
+  return static_pointer_cast<ColorPicker>(components[nextComponentId - 1]);
 }
 
-uint32_t gui::Window::addFrameData() {
-  components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new FrameData())));
+std::shared_ptr<FrameData> Window::addFrameData() {
+  components.insert(std::make_pair(nextComponentId, std::make_shared<FrameData>()));
   ++nextComponentId;
 
-  return nextComponentId - 1;
+  return static_pointer_cast<FrameData>(components[nextComponentId - 1]);
 }
 
-uint32_t gui::Window::addLog() {
-  components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new Log())));
+std::shared_ptr<Log> Window::addLog() {
+  components.insert(std::make_pair(nextComponentId, std::make_shared<Log>()));
   ++nextComponentId;
 
-  return nextComponentId - 1;
+  return static_pointer_cast<Log>(components[nextComponentId - 1]);
 }
 
-void gui::Window::render() {
+void Window::render() {
   int gameWindowWidth, gameWindowHeight;
   JollyGame::getInstance()->getGameWindowSize(gameWindowWidth, gameWindowHeight);
 
@@ -51,7 +49,7 @@ void gui::Window::render() {
   ImGui::SetNextWindowSize(ImVec2(width, height));
 
   ImGui::Begin(name.c_str());
-  for (const auto component : components) {
+  for (const auto &component : components) {
     component.second->render();
   }
   ImGui::End();
