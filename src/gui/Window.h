@@ -14,9 +14,11 @@ class Window {
   Window(const std::string &name, const uint32_t width, const uint32_t height);
   ~Window() = default;
 
-  void addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue, float* variable);
-  void addColorPicker(const std::string &label, float* color);
-  void addFrameData();
+  uint32_t addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
+                          float* variable);
+  uint32_t addColorPicker(const std::string &label, float* color);
+  uint32_t addFrameData();
+  uint32_t addLog();
 
   void render();
 

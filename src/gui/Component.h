@@ -2,7 +2,7 @@
 
 namespace gui {
 
-enum class ComponentType { ColorPicker, FloatSlider, FrameData };
+enum class ComponentType { ColorPicker, FloatSlider, FrameData, Log };
 
 class Component {
  public:

@@ -3,6 +3,7 @@
 #include "ColorPicker.h"
 #include "FloatSlider.h"
 #include "FrameData.h"
+#include "Log.h"
 #include "imgui/imgui.h"
 #include "src/JollyGame.h"
 
@@ -12,21 +13,34 @@ gui::Window::Window(const std::string &name, const uint32_t width, const uint32_
   this->height = height;
 }
 
-void gui::Window::addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
-                                 float* variable) {
+uint32_t gui::Window::addFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
+                                     float* variable) {
   components.insert(std::make_pair(
       nextComponentId, static_cast<Component*>(new FloatSlider(label, minimumValue, maximumValue, variable))));
   ++nextComponentId;
+
+  return nextComponentId - 1;
 }
 
-void gui::Window::addColorPicker(const std::string &label, float* color) {
+uint32_t gui::Window::addColorPicker(const std::string &label, float* color) {
   components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new ColorPicker(label, color))));
   ++nextComponentId;
+
+  return nextComponentId - 1;
 }
 
-void gui::Window::addFrameData() {
+uint32_t gui::Window::addFrameData() {
   components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new FrameData())));
   ++nextComponentId;
+
+  return nextComponentId - 1;
+}
+
+uint32_t gui::Window::addLog() {
+  components.insert(std::make_pair(nextComponentId, static_cast<Component*>(new Log())));
+  ++nextComponentId;
+
+  return nextComponentId - 1;
 }
 
 void gui::Window::render() {
