@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 
 #include <fstream>
-#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -18,12 +17,11 @@ BasicShader::BasicShader(const std::string &filepath) {
 }
 
 BasicShader::~BasicShader() { glDeleteProgram(rendererId); }
-
 void BasicShader::Bind() const {
   if (rendererId != 0) {
     glUseProgram(rendererId);
   } else {
-    std::runtime_error("rendererId in Shader is 0!" );
+    std::logic_error("rendererId in Shader is 0!");
   }
 }
 
@@ -42,11 +40,11 @@ unsigned int BasicShader::CompileShader(unsigned int type, const std::string &so
     int length;
     glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 
-    char* message = (char*)alloca(length * sizeof(char));
-    glGetShaderInfoLog(id, length, &length, message);
+    // Use this to debug failing shader compilation. The message can be printed using std::cout.
+    // char* message = (char*)alloca(length * sizeof(char));
+    // glGetShaderInfoLog(id, length, &length, message);
 
-    std::runtime_error("Failed to compile %s shader", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
-    std::cout << message << std::endl;
+    std::logic_error("Failed to compile shader");
 
     glDeleteShader(id);
 
@@ -113,7 +111,7 @@ int BasicShader::GetUniformLocation(const std::string &name) {
   } else {
     location = glGetUniformLocation(rendererId, name.c_str());
     if (location == -1) {
-      std::cout << "Warning: uniform " << name << " does not exist" << std::endl;
+      std::logic_error("Uniform" + name + " does not exist.");
     }
     uniformLocationCache[name] = location;
   }

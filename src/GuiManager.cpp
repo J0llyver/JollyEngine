@@ -15,15 +15,19 @@ void GuiManager::renderGui() {
   ImGui::NewFrame();
 
   for (const auto &window : windows) {
-    window->render();
+    window.second->render();
   }
 
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-std::shared_ptr<gui::Window> GuiManager::createWindow(const std::string &name, const uint32_t width, const uint32_t height) {
-  windows.push_back(std::make_shared<gui::Window>(name, width, height));
-  return windows.back();
+std::shared_ptr<gui::Window> GuiManager::createWindow(const std::string &name, const uint32_t width,
+                                                      const uint32_t height) {
+  windows.insert(std::make_pair(name, std::make_shared<gui::Window>(name, width, height)));
+  return windows[name];
 }
 
+// std::shared_ptr<gui::Window> GuiManager::getWindow(const std::string &name) {
+//   return windows
+// }
