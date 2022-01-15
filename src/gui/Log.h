@@ -14,7 +14,7 @@ class Log : public Component {
   void render();
   ComponentType getType();
 
-  void log(const std::string &message);
+  void log(std::string message);
   void clear();
 
  private:

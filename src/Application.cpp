@@ -34,7 +34,7 @@ int main() {
 
   auto logId = imguiWindow->createLog();
   auto log = gui::ComponentManager::getInstance()->getLog(logId);
-  log->log("Patrick\n");
+  log->log("Patrick");
   log->log("Spongebob");
 
   /* Loop until the user closes the window */
