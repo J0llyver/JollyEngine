@@ -27,9 +27,9 @@ std::shared_ptr<gui::Window> GuiManager::createWindow(const std::string &name, c
   if (windows.find(name) == windows.end()) {
     windows.insert(std::make_pair(name, std::make_shared<gui::Window>(name, width, height)));
     return windows[name];
-  } else {
-    return windows[name];
   }
+
+  return windows[name];
 }
 
 std::shared_ptr<gui::Window> GuiManager::getWindow(const std::string &name) {

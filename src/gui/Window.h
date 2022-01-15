@@ -1,15 +1,10 @@
 #pragma once
 
-#include <cstdint>
+#include <list>
 #include <memory>
 #include <string>
-#include <unordered_map>
 
-#include "ColorPicker.h"
 #include "Component.h"
-#include "FloatSlider.h"
-#include "FrameData.h"
-#include "Log.h"
 
 namespace gui {
 
@@ -19,11 +14,13 @@ class Window {
   Window(const std::string &name, const uint32_t width, const uint32_t height);
   ~Window() = default;
 
-  std::shared_ptr<FloatSlider> addFloatSlider(const std::string &label, const float &minimumValue,
-                                              const float &maximumValue, float* variable);
-  std::shared_ptr<ColorPicker> addColorPicker(const std::string &label, float* color);
-  std::shared_ptr<FrameData> addFrameData();
-  std::shared_ptr<Log> addLog();
+  void addComponent(const uint32_t componentId);
+
+  uint32_t createFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
+                             float* variable);
+  uint32_t createColorPicker(const std::string &label, float* color);
+  uint32_t createFrameData();
+  uint32_t createLog();
 
   void render();
 
@@ -35,7 +32,7 @@ class Window {
 
   uint32_t nextComponentId;
 
-  std::unordered_map<uint32_t, std::shared_ptr<Component>> components;
+  std::list<uint32_t> idsOfAttachedComponents;
 };
 
 }  // namespace gui

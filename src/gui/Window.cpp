@@ -1,5 +1,8 @@
 #include "Window.h"
 
+#include <iostream>
+
+#include "ComponentManager.h"
 #include "imgui/imgui.h"
 #include "src/JollyGame.h"
 
@@ -11,34 +14,32 @@ Window::Window(const std::string &name, const uint32_t width, const uint32_t hei
   this->height = height;
 }
 
-std::shared_ptr<FloatSlider> Window::addFloatSlider(const std::string &label, const float &minimumValue,
-                                                    const float &maximumValue, float* variable) {
-  components.insert(
-      std::make_pair(nextComponentId, std::make_shared<FloatSlider>(label, minimumValue, maximumValue, variable)));
-  ++nextComponentId;
+void Window::addComponent(const uint32_t componentId) { idsOfAttachedComponents.push_back(componentId); }
 
-  return static_pointer_cast<FloatSlider>(components[nextComponentId - 1]);
+uint32_t Window::createColorPicker(const std::string &label, float* color) {
+  const uint32_t newComponentId = ComponentManager::getInstance()->createColorPicker(label, color);
+  idsOfAttachedComponents.push_back(newComponentId);
+  return newComponentId;
 }
 
-std::shared_ptr<ColorPicker> Window::addColorPicker(const std::string &label, float* color) {
-  components.insert(std::make_pair(nextComponentId, std::make_shared<ColorPicker>(label, color)));
-  ++nextComponentId;
-
-  return static_pointer_cast<ColorPicker>(components[nextComponentId - 1]);
+uint32_t Window::createFloatSlider(const std::string &label, const float &minimumValue, const float &maximumValue,
+                                   float* variable) {
+  const uint32_t newComponentId =
+      ComponentManager::getInstance()->createFloatSlider(label, minimumValue, maximumValue, variable);
+  idsOfAttachedComponents.push_back(newComponentId);
+  return newComponentId;
 }
 
-std::shared_ptr<FrameData> Window::addFrameData() {
-  components.insert(std::make_pair(nextComponentId, std::make_shared<FrameData>()));
-  ++nextComponentId;
-
-  return static_pointer_cast<FrameData>(components[nextComponentId - 1]);
+uint32_t Window::createFrameData() {
+  const uint32_t newComponentId = ComponentManager::getInstance()->createFrameData();
+  idsOfAttachedComponents.push_back(newComponentId);
+  return newComponentId;
 }
 
-std::shared_ptr<Log> Window::addLog() {
-  components.insert(std::make_pair(nextComponentId, std::make_shared<Log>()));
-  ++nextComponentId;
-
-  return static_pointer_cast<Log>(components[nextComponentId - 1]);
+uint32_t Window::createLog() {
+  const uint32_t newComponentId = ComponentManager::getInstance()->createLog();
+  idsOfAttachedComponents.push_back(newComponentId);
+  return newComponentId;
 }
 
 void Window::render() {
@@ -49,8 +50,13 @@ void Window::render() {
   ImGui::SetNextWindowSize(ImVec2(width, height));
 
   ImGui::Begin(name.c_str());
-  for (const auto &component : components) {
-    component.second->render();
+
+  const auto componentManager = ComponentManager::getInstance();
+
+  for (const auto componentId : idsOfAttachedComponents) {
+    std::cout << "Render Component " << componentId << std::endl;
+    componentManager->renderComponent(componentId);
   }
+
   ImGui::End();
 }
