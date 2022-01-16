@@ -1,5 +1,6 @@
 #include "JollyGame.h"
 
+#include <iostream>
 #include <stdexcept>
 
 JollyGame::JollyGame() {
@@ -38,6 +39,10 @@ JollyGame::JollyGame() {
   ImGui_ImplOpenGL3_Init(glsl_version);
 
   ImGui::StyleColorsDark();
+
+  int width, height;
+  glfwGetFramebufferSize(gameWindow, &width, &height);
+  glViewport(0, 0, width, height);
 }
 
 JollyGame* JollyGame::getInstance() {

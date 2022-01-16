@@ -1,8 +1,5 @@
 #include "ComponentManager.h"
 
-#include <iostream>
-#include <stdexcept>
-
 using namespace gui;
 
 ComponentManager* ComponentManager::getInstance() {
@@ -79,8 +76,6 @@ uint32_t ComponentManager::addComponent(const std::shared_ptr<Component> &compon
   components.insert(std::make_pair(nextComponentId, component));
 
   ++nextComponentId;
-
-  std::cout << "Next component id: " << nextComponentId << std::endl;
 
   return nextComponentId - 1;
 }

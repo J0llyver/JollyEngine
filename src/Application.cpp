@@ -26,9 +26,12 @@ int main() {
 
   auto guiManager = GuiManager::getInstance();
 
+  int windowWidth, windowHeight;
+  game->getGameWindowSize(windowWidth, windowHeight);
+
   auto imguiWindow = guiManager->createWindow("Patrick", 400, 250);
-  imguiWindow->createFloatSlider("Position X", 0.0f, 540.0f, &objectPosition.x);
-  imguiWindow->createFloatSlider("Position Y", 0.0f, 540.0f, &objectPosition.y);
+  imguiWindow->createFloatSlider("Position X", 0.0f, windowWidth, &objectPosition.x);
+  imguiWindow->createFloatSlider("Position Y", 0.0f, windowHeight, &objectPosition.y);
   imguiWindow->createColorPicker("clear color", (float*)&clear_color);
   imguiWindow->createFrameData();
 
@@ -37,9 +40,7 @@ int main() {
   log->log("Patrick");
   log->log("Spongebob");
 
-  /* Loop until the user closes the window */
   while (!game->windowShouldClose()) {
-    /* Render here */
     renderer->clear();
 
     guiManager->renderGui();

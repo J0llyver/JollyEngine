@@ -1,7 +1,5 @@
 #include "Window.h"
 
-#include <iostream>
-
 #include "ComponentManager.h"
 #include "imgui/imgui.h"
 #include "src/JollyGame.h"
@@ -54,7 +52,6 @@ void Window::render() {
   const auto componentManager = ComponentManager::getInstance();
 
   for (const auto componentId : idsOfAttachedComponents) {
-    std::cout << "Render Component " << componentId << std::endl;
     componentManager->renderComponent(componentId);
   }
 
