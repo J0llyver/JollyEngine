@@ -3,6 +3,12 @@
 #include <iostream>
 #include <stdexcept>
 
+namespace {
+  void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+  }
+}
+
 JollyGame::JollyGame() {
   /* Initialize the library */
   if (!glfwInit()) {
@@ -28,6 +34,8 @@ JollyGame::JollyGame() {
     std::runtime_error("Failed to initialize glew!");
   }
 
+  glfwSetFramebufferSizeCallback(gameWindow, framebufferSizeCallback);
+
   const char* glsl_version = "#version 130";
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
@@ -39,10 +47,6 @@ JollyGame::JollyGame() {
   ImGui_ImplOpenGL3_Init(glsl_version);
 
   ImGui::StyleColorsDark();
-
-  int width, height;
-  glfwGetFramebufferSize(gameWindow, &width, &height);
-  glViewport(0, 0, width, height);
 }
 
 JollyGame* JollyGame::getInstance() {
