@@ -6,10 +6,18 @@ Entity::Entity() {
   position[2] = 0.0;
 }
 
-const std::array<double, 3> Entity::GetPosition() const { return position; }
+const glm::vec3 &Entity::getPosition() const { return position; }
 
-void Entity::SetPosition(const double &x, const double &y, const double &z) {
+void Entity::setPosition(const float &x, const float &y, const float &z) {
   position[0] = x;
   position[1] = y;
   position[2] = z;
+}
+
+const glm::vec3 &Entity::getRotation() const { return rotation; }
+
+void Entity::setRotation(const float &x, const float &y, const float &z) {
+  rotation[0] = x;
+  rotation[1] = y;
+  rotation[2] = z;
 }

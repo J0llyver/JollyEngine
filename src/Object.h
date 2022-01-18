@@ -4,9 +4,7 @@
 
 #include "src/Entity.h"
 #include "src/Mesh/Mesh.h"
-#include "src/vendor/glm/gtc/matrix_transform.hpp"
 
-// ToDo: Add pipline for rendering behaviour
 // ToDo: Add pipline fo game behaviour
 class Object : Entity {
  public:

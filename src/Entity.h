@@ -2,14 +2,20 @@
 
 #include <array>
 
+#include "glm/glm.hpp"
+
 class Entity {
  public:
   Entity();
   ~Entity() = default;
 
-  virtual const std::array<double, 3> GetPosition() const;
-  virtual void SetPosition(const double &x, const double &y, const double &z);
+  const glm::vec3 &getPosition() const;
+  void setPosition(const float &x, const float &y, const float &z);
+
+  const glm::vec3 &getRotation() const;
+  void setRotation(const float &x, const float &y, const float &z);
 
  private:
-  std::array<double, 3> position;
+  glm::vec3 position;
+  glm::vec3 rotation;
 };
