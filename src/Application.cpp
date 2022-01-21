@@ -1,11 +1,13 @@
-// This needs to be included first because glew needs to be included before glm
+#include <iostream>
+
+#include "CameraManager.h"
+#include "ComponentManager.h"
 #include "GuiManager.h"
 #include "JollyGame.h"
 #include "Object.h"
 #include "Renderer.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
-#include "gui/ComponentManager.h"
 
 int main() {
   auto game = JollyGame::getInstance();
@@ -15,8 +17,14 @@ int main() {
 
   auto renderer = Renderer::getInstance();
 
-  glm::vec3 objectPosition(100, 100, 0);
+  CameraManager::getInstance()->createCamera("main");
+  const auto camera = CameraManager::getInstance()->getCamera("main");
+
+  const auto cameraProjectionMatrix = camera->getProjectionMatrix();
+
+  glm::vec3 objectPosition(0, 0, 0);
   Object square(MeshPrimitiveType::Square, objectPosition);
+  square.scale(10.0f);
 
   Object square2(MeshPrimitiveType::Square, objectPosition);
 
@@ -43,11 +51,11 @@ int main() {
   while (!game->windowShouldClose()) {
     renderer->clear();
 
-    guiManager->renderGui();
-
     square.translate(objectPosition);
     square.render();
     square2.render();
+
+    guiManager->renderGui();
 
     game->swapBuffers();
     game->pollEvents();

@@ -1,12 +1,17 @@
 #include "Camera.h"
 
+#include "src/JollyGame.h"
 #include "src/vendor/glm/gtc/matrix_transform.hpp"
 
 Camera::Camera() {
-  position = glm::vec3(0.0f, 0.0f, 3.0f);
+  position = glm::vec3(0.0f, 0.0f, 50.0f);
   target = glm::vec3(0.0f, 0.0f, 0.0f);
 
   updateProperties();
+
+  int gameWindowWidth, gameWindowHeight;
+  JollyGame::getInstance()->getGameWindowSize(gameWindowWidth, gameWindowHeight);
+  setProjectionMatrix(45, (float)gameWindowWidth / (float)gameWindowHeight, 1.0f, 200.0f);
 }
 
 const glm::vec3 &Camera::getPosition() const { return position; }
@@ -21,10 +26,8 @@ void Camera::setPosition(const float x, const float y, const float z) {
 
 const glm::vec3 &Camera::getTarget() const { return target; }
 
-void Camera::setTarget(const float x, const float y, const float z) {
-  target[0] = x;
-  target[1] = y;
-  target[2] = z;
+void Camera::setTarget(const glm::vec3 &target) {
+  this->target = target;
 
   updateProperties();
 }
@@ -45,5 +48,5 @@ void Camera::updateProperties() {
   right = glm::normalize(glm::cross(globalUp, viewDirection));
   up = glm::cross(viewDirection, right);
 
-  viewMatrix = glm::lookAt(right, up, viewDirection);
+  viewMatrix = glm::lookAt(position, target, up);
 }

@@ -12,7 +12,7 @@ class Object : Entity {
   Object(const MeshPrimitiveType &type, const glm::vec3 &position);
   ~Object() = default;
 
-  inline void scale(const double x);
+  void scale(const double x);
   void scale(double xRatio, double yRatio, double zRatio);
   void translate(const glm::vec3 &newPosition);
 

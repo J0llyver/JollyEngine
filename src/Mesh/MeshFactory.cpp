@@ -49,10 +49,8 @@ void MeshFactory::initializeTriangle(std::vector<float> &vertices, std::vector<u
 }
 
 void MeshFactory::initializeSquare(std::vector<float> &vertices, std::vector<uint32_t> &indices) const {
-  vertices = {//-0.5, -0.5, 0.0,
-              // 0.5, -0.5, 0.0,
-              // 0.5, 0.5, 0.0,
-              //-0.5, 0.5, 0.0
-              0.0f, 0.0f, 0.0f, 0.0f, 100.0f, 0.0f, 1.0f, 0.0f, 100.0f, 100.0f, 1.0f, 1.0f, 0.0f, 100.0f, 0.0f, 1.0f};
+  // 3 values for vertex position, 2 values for texture coordinate
+  vertices = {-0.5, -0.5, 0.0, 0.0, 0.0f, 0.5,  -0.5, 0.0, 1.0, 0.0f,
+              0.5,  0.5,  0.0, 1.0, 1.0f, -0.5, 0.5,  0.0, 0.0, 1.0f};
   indices = {0, 1, 2, 2, 3, 0};
 }

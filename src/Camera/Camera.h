@@ -12,7 +12,7 @@ class Camera : public Entity {
   const glm::vec3 &getTarget() const;
 
   void setPosition(const float x, const float y, const float z);
-  void setTarget(const float x, const float y, const float z);
+  void setTarget(const glm::vec3 &target);
 
   const glm::mat4 &getProjectionMatrix() const;
   const glm::mat4 &getViewMatrix() const;
