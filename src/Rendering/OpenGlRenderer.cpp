@@ -1,8 +1,8 @@
 #include "OpenGlRenderer.h"
 
-#include "src/IndexBuffer.h"
-#include "src/VertexArray.h"
-#include "src/VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
 
 void OpenGlRenderer::clear() const { glClear(GL_COLOR_BUFFER_BIT); }
 
