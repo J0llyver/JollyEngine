@@ -16,6 +16,11 @@ class Object : Entity {
   void scale(double xRatio, double yRatio, double zRatio);
   void translate(const glm::vec3 &newPosition);
 
+  void rotate(const float angle, const glm::vec3 &rotationAxis);
+  void pitch(const float angle);
+  void yaw(const float angle);
+  void roll(const float angle);
+
   int setTexture(const std::string &textureLocation);
 
   const glm::mat4 &getModelMatrix() const;

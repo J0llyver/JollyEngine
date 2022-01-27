@@ -29,6 +29,16 @@ void Object::scale(const double xRatio, const double yRatio, const double zRatio
 
 void Object::translate(const glm::vec3 &newPosition) { modelMatrix = glm::translate(modelMatrix, newPosition); }
 
+void Object::rotate(const float angle, const glm::vec3 &rotationAxis) {
+  modelMatrix = glm::rotate(modelMatrix, angle, rotationAxis);
+}
+
+void Object::pitch(const float angle) { rotate(angle, glm::vec3(1.0f, 0.0f, 0.0f)); }
+
+void Object::yaw(const float angle) { rotate(angle, glm::vec3(0.0f, 1.0f, 0.0f)); }
+
+void Object::roll(const float angle) { rotate(angle, glm::vec3(0.0f, 0.0f, 1.0f)); }
+
 int Object::setTexture(const std::string &textureLocation) {
   std::ifstream textureFile(textureLocation.c_str());
   if (!textureFile.good()) {

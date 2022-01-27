@@ -12,9 +12,6 @@
 int main() {
   auto game = JollyGame::getInstance();
 
-  // Our state
-  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
   auto renderer = Renderer::getInstance();
 
   CameraManager::getInstance()->createCamera("main");
@@ -25,6 +22,7 @@ int main() {
   glm::vec3 objectPosition(0, 0, 0);
   Object square(MeshPrimitiveType::Square, objectPosition);
   square.scale(10.0f);
+  square.pitch(-45.0f);
 
   Object square2(MeshPrimitiveType::Square, objectPosition);
 
@@ -40,7 +38,10 @@ int main() {
   auto imguiWindow = guiManager->createWindow("Patrick", 400, 250);
   imguiWindow->createFloatSlider("Position X", 0.0f, windowWidth, &objectPosition.x);
   imguiWindow->createFloatSlider("Position Y", 0.0f, windowHeight, &objectPosition.y);
+
+  ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
   imguiWindow->createColorPicker("clear color", (float*)&clear_color);
+
   imguiWindow->createFrameData();
 
   auto logId = imguiWindow->createLog();
