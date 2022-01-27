@@ -4,12 +4,12 @@
 #include <unordered_map>
 #include <vector>
 
-#include "src/Mesh/Mesh.h"
 #include "Shader/Shader.h"
+#include "src/Mesh/Mesh.h"
 
 class OpenGlRenderer {
  public:
-  OpenGlRenderer() = default;
+  OpenGlRenderer();
   ~OpenGlRenderer() = default;
 
   void clear() const;

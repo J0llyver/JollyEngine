@@ -6,7 +6,7 @@
 #include "src/Mesh/Mesh.h"
 
 // ToDo: Add pipline fo game behaviour
-class Object : Entity {
+class Object : public Entity {
  public:
   Object(const std::string &meshId, const glm::vec3 &position);
   Object(const MeshPrimitiveType &type, const glm::vec3 &position);
