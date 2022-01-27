@@ -5,14 +5,10 @@
 #include "../vendor/stb_image/stb_image.h"
 
 Texture::Texture(const std::string &path) {
-  this->filePath = path;
-  this->localBuffer = nullptr;
-  this->width = 0;
-  this->height = 0;
-  this->bpp = 0;
-
   stbi_set_flip_vertically_on_load(1);  // OpenGL expects texture pixels to start at the bottom left
-  localBuffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
+
+  int width, height, bpp;
+  unsigned char* localBuffer = stbi_load(path.c_str(), &width, &height, &bpp, 4);
 
   glGenTextures(1, &rendererId);
   glBindTexture(GL_TEXTURE_2D, rendererId);

@@ -58,11 +58,6 @@ int Object::render() const {
 
   const auto camera = CameraManager::getInstance()->getCamera("main");
 
-  // ToDo: Implement Camera and get projectionMatrix and view Matrix
-  int gameWindowWidth, gameWindowHeight;
-  JollyGame::getInstance()->getGameWindowSize(gameWindowWidth, gameWindowHeight);
-  glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)gameWindowWidth, 0.0f, (float)gameWindowHeight, -1.0f, 1.0f);
-  glm::mat4 viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
   glm::mat4 modelViewProjectionMatrix = camera->getProjectionMatrix() * camera->getViewMatrix() * modelMatrix;
 
   shader->Bind();
