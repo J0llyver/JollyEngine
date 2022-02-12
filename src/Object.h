@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "src/Entity.h"
-#include "src/Mesh/Mesh.h"
+#include "Entity.h"
+#include "Mesh/Mesh.h"
 
 // ToDo: Add pipline fo game behaviour
 class Object : public Entity {

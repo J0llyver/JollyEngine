@@ -3,7 +3,7 @@
 #include <list>
 
 #include "glm/glm.hpp"
-#include "src/Object.h"
+#include "Object.h"
 
 /**
  * This is the component whith which the scenery of a game is created. 

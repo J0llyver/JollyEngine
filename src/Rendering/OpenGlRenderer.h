@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Shader/Shader.h"
-#include "src/Mesh/Mesh.h"
+#include "Mesh/Mesh.h"
 
 class OpenGlRenderer {
  public:

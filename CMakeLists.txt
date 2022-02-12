@@ -26,7 +26,7 @@ file(
 )
 
 add_executable(JollyEngine ${JOLLYENGINE_SRC})
-target_include_directories(JollyEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(JollyEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR})
 target_link_libraries(JollyEngine ${LINK_LIBRARIES})
 
 # Copy resources to the binary folder

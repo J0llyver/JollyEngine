@@ -1,7 +1,7 @@
 #include "Camera.h"
 
-#include "src/JollyGame.h"
-#include "src/vendor/glm/gtc/matrix_transform.hpp"
+#include "JollyGame.h"
+#include "vendor/glm/gtc/matrix_transform.hpp"
 
 Camera::Camera() {
   position = glm::vec3(0.0f, 0.0f, 50.0f);

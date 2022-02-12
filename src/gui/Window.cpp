@@ -1,8 +1,8 @@
 #include "Window.h"
 
 #include "imgui/imgui.h"
-#include "src/ComponentManager.h"
-#include "src/JollyGame.h"
+#include "ComponentManager.h"
+#include "JollyGame.h"
 
 using namespace gui;
 

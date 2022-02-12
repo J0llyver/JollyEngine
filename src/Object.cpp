@@ -9,7 +9,7 @@
 #include "Mesh/MeshFactory.h"
 #include "Renderer.h"
 #include "Rendering/ShaderFactory.h"
-#include "src/vendor/glm/gtc/matrix_transform.hpp"
+#include "vendor/glm/gtc/matrix_transform.hpp"
 
 Object::Object(const std::string &meshId, const glm::vec3 &position) {
   this->meshId = meshId;

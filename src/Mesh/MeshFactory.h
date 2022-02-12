@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "src/Mesh/Mesh.h"
+#include "Mesh/Mesh.h"
 
 class MeshFactory {
  public:
