@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
+#include "Shader.h"
 #include <unordered_map>
 
-#include "Shader.h"
+#include <string>
 
 struct ShaderProgramSource {
   std::string VertexSource;

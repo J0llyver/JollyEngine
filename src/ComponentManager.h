@@ -1,13 +1,13 @@
 #pragma once
 
-#include <memory>
-#include <unordered_map>
-
 #include "gui/ColorPicker.h"
 #include "gui/Component.h"
 #include "gui/FloatSlider.h"
 #include "gui/FrameData.h"
 #include "gui/Log.h"
+#include <unordered_map>
+
+#include <memory>
 
 namespace gui {
 class ComponentManager {

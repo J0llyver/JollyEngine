@@ -1,11 +1,11 @@
 #pragma once
 
+#include "gui/Window.h"
+#include <unordered_map>
+
 #include <cstdint>
 #include <memory>
 #include <string>
-#include <unordered_map>
-
-#include "gui/Window.h"
 
 class GuiManager {
  public:

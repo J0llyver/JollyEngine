@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "CameraManager.h"
 #include "ComponentManager.h"
 #include "GuiManager.h"
@@ -8,6 +6,8 @@
 #include "Renderer.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
+
+#include <iostream>
 
 int main() {
   auto game = JollyGame::getInstance();

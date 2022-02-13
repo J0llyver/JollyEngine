@@ -1,8 +1,5 @@
 #include "Object.h"
 
-#include <fstream>
-#include <stdexcept>
-
 #include "CameraManager.h"
 #include "Entity.h"
 #include "JollyGame.h"
@@ -10,6 +7,9 @@
 #include "Renderer.h"
 #include "Rendering/ShaderFactory.h"
 #include "vendor/glm/gtc/matrix_transform.hpp"
+
+#include <fstream>
+#include <stdexcept>
 
 Object::Object(const std::string &meshId, const glm::vec3 &position) {
   this->meshId = meshId;

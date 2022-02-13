@@ -4,10 +4,8 @@
 #include <stdexcept>
 
 namespace {
-  void framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-  }
-}
+void framebufferSizeCallback(GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); }
+}  // namespace
 
 JollyGame::JollyGame() {
   /* Initialize the library */

@@ -1,8 +1,7 @@
 #include "Texture.h"
 
-#include <GL/glew.h>
-
 #include "../vendor/stb_image/stb_image.h"
+#include <GL/glew.h>
 
 Texture::Texture(const std::string &path) {
   stbi_set_flip_vertically_on_load(1);  // OpenGL expects texture pixels to start at the bottom left

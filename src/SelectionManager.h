@@ -1,12 +1,11 @@
 #pragma once
 
 class SelectionManager {
-public:
+ public:
   ~SelectionManager() = default;
 
-  static SelectionManager* getInstance();    
+  static SelectionManager* getInstance();
 
-private:
+ private:
   SelectionManager() = default;
-
 };

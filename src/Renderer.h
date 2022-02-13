@@ -1,10 +1,10 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-
 #include "Rendering/OpenGlRenderer.h"
 #include "Rendering/Shader/Shader.h"
+
+#include <memory>
+#include <vector>
 
 class Renderer {
  public:

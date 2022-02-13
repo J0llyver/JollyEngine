@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
-
 #include "Entity.h"
 #include "Mesh/Mesh.h"
+
+#include <string>
 
 // ToDo: Add pipline fo game behaviour
 class Object : public Entity {

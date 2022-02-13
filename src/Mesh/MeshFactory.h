@@ -1,10 +1,10 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-#include <vector>
-
 #include "Mesh/Mesh.h"
+#include <unordered_map>
+
+#include <string>
+#include <vector>
 
 class MeshFactory {
  public:

@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
-
 #include "Component.h"
 #include "imgui/imgui.h"
+
+#include <string>
 
 namespace gui {
 class Log : public Component {

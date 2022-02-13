@@ -1,10 +1,10 @@
 #pragma once
 
+#include "Component.h"
+
 #include <list>
 #include <memory>
 #include <string>
-
-#include "Component.h"
 
 namespace gui {
 

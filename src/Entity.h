@@ -1,8 +1,8 @@
 #pragma once
 
-#include <array>
-
 #include "glm/glm.hpp"
+
+#include <array>
 
 class Entity {
  public:

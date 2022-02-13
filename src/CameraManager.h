@@ -1,10 +1,10 @@
 #pragma once
 
-#include <memory>
-#include <string>
+#include "Camera/Camera.h"
 #include <unordered_map>
 
-#include "Camera/Camera.h"
+#include <memory>
+#include <string>
 
 class CameraManager {
  public:
