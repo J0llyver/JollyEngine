@@ -2,7 +2,7 @@
 This project has been created to test the JollyEngine game development library.
 
 # Build the project
-Befor being able to build the project, we need to generate the makefiles with cmae,first. For this, create a directory named 'build' and switch into it by using following command:
+Befor being able to build the project, we need to generate the makefiles with cmake, first. For this, create a directory named 'build' and switch into it by using following command:
 
 `mkdir build && cd $_`
 
