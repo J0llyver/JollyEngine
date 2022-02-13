@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Run clang-format over all created or modified .cpp and .h files.
+files="src/Scenery/SceneryNode.h\ntests/src/Scenery/TestSceneryNode.cpp"
+for file in $(git diff --staged --diff-filter=AM --name-only | grep -e '.*\(\(\.cpp\)\|\(\.h\)\)' | xargs)
+do 
+  clang-format -i $file
+  git add $file
+done
