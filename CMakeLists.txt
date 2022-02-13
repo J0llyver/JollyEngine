@@ -16,17 +16,19 @@ set (PROJECT_SOURCE_DIR src)
 
 add_compile_options(-g -Wall -Wformat)
 
-include_directories("${PROJECT_BINARY_DIR}" "src/vendor")
+include_directories("${PROJECT_BINARY_DIR}" "extern")
 
 file(
   GLOB_RECURSE
   JOLLYENGINE_SRC
   "src/*.cpp"
   "src/*.h"
+  "extern/*.cpp"
+  "extern/*.h"
 )
 
 add_executable(JollyEngine ${JOLLYENGINE_SRC})
-target_include_directories(JollyEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR})
+target_include_directories(JollyEngine PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(JollyEngine ${LINK_LIBRARIES})
 
 # Copy resources to the binary folder

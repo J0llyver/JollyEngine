@@ -6,7 +6,7 @@
 #include "Mesh/MeshFactory.h"
 #include "Renderer.h"
 #include "Rendering/ShaderFactory.h"
-#include "vendor/glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #include <fstream>
 #include <stdexcept>
