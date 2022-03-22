@@ -14,7 +14,7 @@ add_definitions(${CPP_VERSION_COMPILE_FLAG})
 # Configure project source directory location
 set (PROJECT_SOURCE_DIR src)
 
-add_compile_options(-g -Wall -Wformat)
+add_compile_options(-g -Wall -Wformat -std=c++20)
 
 include_directories("${PROJECT_BINARY_DIR}" "extern")
 
