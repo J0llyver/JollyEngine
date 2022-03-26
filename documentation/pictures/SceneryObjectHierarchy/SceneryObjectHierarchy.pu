@@ -1,0 +1,82 @@
+@startuml
+' Abstract Classes
+abstract Destructable {
+  +destroy()
+}
+
+abstract Rotateable {
+  +yaw()
+  +pitch()
+  +roll()
+  +rotate()
+}
+
+abstract Movable {
+  +translate()
+}
+
+abstract Object {
+  +setPosition()
+  +setRotation()
+}
+
+abstract Light {
+  +setIntensity()
+  +setColor()
+  +toggle()
+}
+Destructable <|-- Light
+
+abstract Actor {
+  +addBehaviour() 
+  +enable()
+  +disable()
+}
+
+' Normal Classes
+class Skybox {
+}
+Rotateable <|-- Skybox
+TimeIntervalActor <|-- Skybox
+
+class Particle {
+}
+Object <|-- Particle
+Movable <|-- Particle
+
+class TimeIntervalActor {
+}
+Actor <|-- TimeIntervalActor
+
+class FrameIntervalActor {
+}
+Actor <|-- FrameIntervalActor
+
+class Camera {
+  +getProjectionMatrix()
+  +getTarget()
+  +getViewMatrix()
+  +setProjectionMatrix()
+  +setTarget()
+}
+Movable <|-- Camera
+Object <|-- Camera
+Rotateable <|-- Camera
+TimeIntervalActor <|-- Camera
+
+class AmbientLight {
+}
+Light <|-- AmbientLight
+
+class DirectionalLight {
+}
+Light <|-- DirectionalLight
+Rotateable <|-- DirectionalLight
+
+class PointLight {
+}
+Light <|-- PointLight
+Object <|-- PointLight
+Movable <|-- PointLight
+
+@enduml
