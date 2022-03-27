@@ -1,9 +1,5 @@
 @startuml
 ' Abstract Classes
-abstract Destructable {
-  +destroy()
-}
-
 abstract Rotateable {
   +yaw()
   +pitch()
@@ -25,7 +21,6 @@ abstract Light {
   +setColor()
   +toggle()
 }
-Destructable <|-- Light
 
 abstract Actor {
   +addBehaviour() 
@@ -34,6 +29,13 @@ abstract Actor {
 }
 
 ' Normal Classes
+class Prop {
++getMesh
+}
+Movable <|-- Prop
+Object <|-- Prop
+Rotateable <|-- Prop
+
 class Skybox {
 }
 Rotateable <|-- Skybox
