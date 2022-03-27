@@ -1,18 +1,18 @@
 #pragma once
 
-#include "Entity.h"
+#include "Object.h"
 #include "glm/glm.hpp"
 
-class Camera : public Entity {
+class Camera : public Object{
  public:
   Camera();
   ~Camera() = default;
 
-  const glm::vec3 &getPosition() const;
-  const glm::vec3 &getTarget() const;
-
   void setPosition(const float x, const float y, const float z);
+  const glm::vec3 &getPosition() const;
+
   void setTarget(const glm::vec3 &target);
+  const glm::vec3 &getTarget() const;
 
   const glm::mat4 &getProjectionMatrix() const;
   const glm::mat4 &getViewMatrix() const;

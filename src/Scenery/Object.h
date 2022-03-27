@@ -4,10 +4,10 @@
 
 #include <array>
 
-class Entity {
+class Object {
  public:
-  Entity();
-  ~Entity() = default;
+  Object();
+  ~Object() = default;
 
   const glm::vec3 &getPosition() const;
   void setPosition(const float &x, const float &y, const float &z);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Camera/Camera.h"
+#include "Scenery/Camera.h"
 #include <unordered_map>
 
 #include <memory>
