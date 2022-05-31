@@ -70,15 +70,15 @@ class AmbientLight {
 }
 Light <|-- AmbientLight
 
-class DirectionalLight {
-}
-Light <|-- DirectionalLight
-Rotateable <|-- DirectionalLight
-
 class PointLight {
 }
 Light <|-- PointLight
 Object <|-- PointLight
 Movable <|-- PointLight
+
+class DirectionalLight {
+}
+PointLight <|-- DirectionalLight
+Rotateable <|-- DirectionalLight
 
 @enduml
