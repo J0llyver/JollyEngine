@@ -2,8 +2,8 @@
 #include "ComponentManager.h"
 #include "GuiManager.h"
 #include "JollyGame.h"
-#include "Object.h"
 #include "Renderer.h"
+#include "Scenery/Prop.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
 
@@ -17,10 +17,10 @@ int main() {
   CameraManager::getInstance()->createCamera("main");
 
   glm::vec3 objectPosition(0, 0, 0);
-  Object square(MeshPrimitiveType::Square, objectPosition);
+  Prop square(MeshPrimitiveType::Square, objectPosition);
   square.scale(10.0f);
 
-  Object square2(MeshPrimitiveType::Square, objectPosition);
+  Prop square2(MeshPrimitiveType::Square, objectPosition);
 
   // ToDo: Create Texture Manager
   Texture texture("resc/textures/DwarfFortressMap.png");
